@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout3}">
+<head>
+<style>
+ul {
+	/*   margin-left:0px; */
+	padding-left: 12px;
+}
+</style>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Task List</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+									<li class="breadcrumb-item active">Registered User List</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="content">
+					<div class="row">
+						<div class="col-12">
+
+							<div class="card">
+								<div class="card-header">
+									<!--<h3 class="card-title">List of registered users</h3> -->
+									<a href="/taskEdit" th:href="@{/taskEdit}"
+										class="btn btn-sm btn-success" title="Add New Task."><i
+										class="fas fa-tasks mr-2"></i><i class="fas fa-plus"></i></a>
+
+								</div>
+								<br />
+								<div class="d-flex align-items-center justify-content-center">
+									<div class="col-4 text-center">
+										<form action="tasksearch">
+											<div class="input-group">
+												<input type="text" name="taskNameCS" id="taskNameCS"
+													class="form-control form-control-sm"
+													placeholder="Search Taskname (Case-Sensitive)"
+													required="required">
+												<div class="input-group-append">
+													<button class="btn btn-sm btn-primary" type="submit">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</form>
+
+										<form action="tasksearchignorecase">
+											<div class="input-group">
+												<input type="text" name="taskNameCI" id="taskNameCI"
+													class="form-control form-control-sm"
+													placeholder="Search Taskname (Case-Insensitive)"
+													required="required">
+												<div class="input-group-append">
+													<button class="btn btn-sm btn-danger" type="submit">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+
+								<div class="card-body">
+									<table id="tableitems" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Task Name</th>
+												<th>Description</th>
+												<th>Unit Number</th>
+												<th>Unit</th>
+												<!--	<th>Created by</th> -->
+												<!--	<th>Date created</th> -->
+												<!--	<th>Modified by</th> -->
+												<!--	<th>Date modified</th> -->
+												<th>Assigned To</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="task : ${tasks}">
+												<td th:text="${task.id}"></td>
+												<td th:text="${task.taskname}"></td>
+												<td th:text="${task.taskdescription}"></td>
+												<td th:text="${task.taskunitnumber}"></td>
+												<td th:text="${task.taskunit}"></td>
+												<!--	<td th:text="${task.taskcreatedby}"></td> -->
+												<!--	<td th:text="${task.taskdatecreated}"></td> -->
+												<!--	<td th:text="${task.taskmodifiedby}"></td> -->
+												<!--	<td th:text="${task.taskdatemodified}"></td> -->
+												<td>
+													<ul>
+														<li th:each="user : ${task.users}"
+															th:text="${user.username}">User</li>
+													</ul>
+												</td>
+												<td><div class="btn-group">
+														<a th:href="@{'/taskEdit/' + ${task.id}}"
+															class="btn btn-sm btn-warning bg-orange mr-2"
+															title="Edit User. Available to Users and Super Admins only."><i
+															class="far fa-edit"></i></a> <a
+															th:href="@{/taskDelete/{id}(id=${task.id})}"
+															class="btn btn-sm btn-danger bg-red delBtn"
+															title="Delete Task. Available to Super Admins only.">
+															<i class="far fa-trash-alt"></i>
+														</a>
+													</div></td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<th>Id</th>
+												<th>Task Name</th>
+												<th>Description</th>
+												<th>Unit Number</th>
+												<th>Unit</th>
+												<!--	<th>Created by</th> -->
+												<!--	<th>Date created</th> -->
+												<!--	<th>Modified by</th> -->
+												<!--	<th>Date modified</th> -->
+												<th>Assigned To</th>
+												<th>Actions</th>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+		</div>
+	</div>
+
+</body>
+
+</html>

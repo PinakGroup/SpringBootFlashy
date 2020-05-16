@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout3}">
+<head>
+<style>
+ul {
+	/*   margin-left:0px; */
+	padding-left: 12px;
+}
+</style>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>
+									Manage Documents for user - <span
+										th:text="${{appuser.username}}"></span> (Id: <span
+										th:text="${{appuser.id}}"></span>)
+								</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+									<li class="breadcrumb-item active">Manage Documents</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="content">
+					<div class="row">
+						<div class="col-12">
+							<div class="card ">
+								<!-- <div class="card  card-primary"> -->
+								<!--<div class="card-header"> -->
+								<!--	<h3 class="card-title">Upload file</h3> -->
+								<!--</div> -->
+								<div class="card-body">
+
+									<form method="POST" th:object="${fileBucket}"
+										enctype="multipart/form-data" class="form-horizontal">
+										<div class="form-group">
+											<!--		<label for="exampleInputFile">File input</label> -->
+											<div class="input-group">
+												<div class="col-5">
+													<label for="description">Document Description</label>
+													<div class="input-group-append">
+														<input type="text" th:field="${fileBucket.appuserdocumentdescription}"
+															id="description" class="form-control form-control-sm"
+															required="required" placeholder="Document Description" />
+													</div>
+												</div>
+												<div class="col-4">
+													<label for="description">Select File</label></br/> <input
+														type="file" th:field="${fileBucket.file}" id="file"
+														class="input-lg" required="required" />
+												</div>
+
+
+											</div>
+											<div class="col-2">
+												</br/>
+												<div class="input-group-append">
+													<button class="btn btn-primary btn-sm btn-space"
+														type="submit">
+														<i class="fas fa-upload"> </i> Upload
+													</button>
+												</div>
+											</div>
+										</div>
+									</form>
+
+								</div>
+							</div>
+
+
+
+							<div class="card">
+								<div class="card-body">
+									<!-- /.card-body -->
+									<table id="tableitems1"
+										class="table table-bordered table-hover">
+										<thead class="thead-secondary">
+											<tr>
+
+												<th>Id</th>
+												<th>Description</th>
+												<th>Document Name</th>
+												<th>Mime Type</th>
+												<!--<th>Content</th> -->
+												<th>Actions</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="userdoc : ${documents}">
+												<td th:text="${userdoc.id}"></td>
+												<td th:text="${userdoc.appuserdocumentdescription}"></td>
+												<td th:text="${userdoc.appuserdocumentname}"></td>
+												<td th:text="${userdoc.appuserdocumenttype}"></td>
+												<!--<td th:text="${userdoc.appuserdocumentcontent}"></td> -->
+												<td><a
+													th:href="@{/downloaddocument/{id}(id=${userdoc.id})}"
+													class="btn btn-sm btn-success mr-2"
+													title="Download This Document."><i
+														class="fas fa-download"></i></a> <!--  style="color: blue;" -->
+
+													<!--<a th:href="@{/deletedocument/{id}(id=${userdoc.id})}" -->
+													<!--class="btn btn-sm btn-outline-danger delBtn" --> <!--title="Delete This Document."><i class="fas fa-times"></i></a> -->
+
+													<!--<a th:href="@{'/deleteuserdocument/'+ ${userdoc.id}+ '/'+ ${{appuser.id}}}" -->
+													<!--class="btn btn-sm btn-outline-danger delBtn" --> <!--title="Delete This Document."><i class="fas fa-times"></i></a> -->
+
+													<a
+													th:href="@{/deleteuserdocument/{docid}/{userid}(docid=${userdoc.id},userid=${{appuser.id}})}"
+													class="btn btn-sm btn-outline-danger delBtn"
+													title="Delete This Document."><i class="fas fa-times"></i></a>
+
+													<!--<a th:href="@{/deleteItem/{listId}/{itemId}(listId=${list.id},itemId=${item.id})}"><span>Delet‌​e</span></a> -->
+
+													<!-- th:href="@{/deletedocument/{id}(id=${userdoc.id})}" -->
+													<!-- 	class="delBtn" title="Click to Delete"><i --> <!-- 		class="fas fa-trash-alt fa-2x" style="color: red;"></i></a> -->
+												</td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<th>Id</th>
+												<th>Description</th>
+												<th>Document Name</th>
+												<th>Mime Type</th>
+												<!--<th>Content</th> -->
+												<th>Actions</th>
+											</tr>
+										</tfoot>
+									</table>
+									<a href="/tableusers" class="btn btn-sm btn-danger btn-space"><i
+										class="fas fa-arrow-left mr-2"> </i> Back to UserList</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			
+		</div>
+
+	</div>
+
+
+	<!-- #Modal for delete confirmation -->
+	<div class="modal fade" id="removeModalCenter" tabindex="-1"
+		role="dialog" aria-labelledby="removeModalCenterTitle"
+		aria-hidden="true" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-top" role="document">
+			<!-- modal-dialog-centered -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="removeModalCenterTitle">Delete
+						Warning !</h5>
+					<button type="button"
+						class="btn btn-sm btn-default close-icon pull-right"
+						data-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<p class="alert">You sure about this? This operation can not be
+						rolled back.!</p>
+				</div>
+				<div class="modal-footer">
+					<a href="" class="btn btn-sm btn-secondary" id="delRef"><i
+						class="fas fa-check"></i> Yes</a>
+					<button type="button" class="btn btn-sm btn-danger"
+						data-dismiss="modal">
+						<i class="fas fa-times"> No</i>
+					</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

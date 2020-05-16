@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<head>
+
+<style>
+.modal-backdrop {
+	background-color: transparent;
+}
+</style>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0 text-dark">Dashboard</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+									<li class="breadcrumb-item active">Dashboard</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<section class="content">
+					<div class="container-fluid">
+						<!-- Small boxes (Stat box) -->
+
+						<div class="row">
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-info">
+									<div class="inner">
+										<h3>
+											<span th:text="${totaUsers}"></span>
+										</h3>
+
+										<h4>Total Users</h4>
+
+									</div>
+									<div class="icon">
+										<i class="fas fa-users"></i>
+										<!-- 										<i class="ion ion-bag"></i> -->
+									</div>
+									<a href="/tableusers" class="small-box-footer">More info <i
+										class="fas fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3>
+											<span th:text="${activeUserPercentage}"></span><sup
+												style="font-size: 20px">%</sup>
+										</h3>
+										<h4>Activation Rate</h4>
+									</div>
+									<div class="icon">
+										<i class="ion ion-stats-bars"></i>
+									</div>
+									<a href="/tableusersactive" class="small-box-footer">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-warning">
+									<div class="inner">
+										<h3>
+											<span th:text="${inactiveUserPercentage}"></span><sup
+												style="font-size: 20px">%</sup>
+										</h3>
+										<h4>Inactive Rate</h4>
+									</div>
+									<div class="icon">
+										<i class="ion ion-person-add"></i>
+									</div>
+									<a href="/tableusersinactive" class="small-box-footer">More
+										info <i class="fas fa-arrow-circle-right"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-danger">
+									<div class="inner">
+										<h3>
+											<span th:text="${serverDate}"></span>
+
+										</h3>
+										<h4>Server Date</h4>
+									</div>
+									<div class="icon">
+										<!-- <i class="ion ion-pie-graph"></i> -->
+										<i class="far fa-clock"></i>
+									</div>
+									<a href="#" class="small-box-footer">More info <i
+										class="fas fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box">
+
+									<input type="text" class="knob" data-readonly="true"
+										th:text="${inactiveusers}" th:value="${inactiveusers}"
+										data-width="60" data-height="60" data-fgColor="red">
+									<div class="info-box-content">
+										<span class="info-box-text">Inactive Users</span>
+										<div class="info-box-number" id="asdf"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box">
+									<input type="text" class="knob" data-readonly="true"
+										th:text="${activeusers}" th:value="${activeusers}"
+										data-width="60" data-height="60" data-fgColor="green">
+									<!-- #39CCCC -->
+									<div class="info-box-content">
+										<span class="info-box-text">Active Users</span>
+										<div class="info-box-number" id="fdsaf"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box  mb-3">
+									<span class="info-box-icon bg-info elevation-1"> <i
+										class="fas fa-stopwatch"></i> <!--<i class="fas fa-cog"></i> -->
+									</span>
+
+									<div class="info-box-content">
+										<span class="info-box-text ml-auto"><h3>
+												<div class="info-box-number" id="mycounter"></div>
+											</h3></span> <span class="info-box-text">Seconds</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box mb-3">
+									<span class="info-box-icon bg-success elevation-1"><i
+										class="fas fa-users"></i></span>
+
+									<div class="info-box-content">
+										<span class="info-box-text">New Members</span> <span
+											class="info-box-number" th:text="${inactiveusers}">2,000</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box">
+									<span class="info-box-icon bg-danger elevation-1"><i
+										class="far fa-calendar-alt"></i></span>
+
+									<div class="info-box-content">
+										<span class="info-box-text">Your Local Date</span>
+										<div class="info-box-number" id="date-part"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box">
+									<span class="info-box-icon bg-primary elevation-1"><i
+										class="far fa-clock"></i></span>
+
+									<div class="info-box-content">
+										<span class="info-box-text">Your Local Time</span>
+										<div class="info-box-number" id="time-part"></div>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- 							<div class="col-12 col-sm-6 col-md-2"> -->
+							<!-- 								<div class="info-box"> -->
+							<!-- 									<input type="text" class="knob" data-readonly="true" th:text="${totaUsers}" th:value="${totaUsers}" data-width="60" -->
+							<!-- 										data-height="60" data-fgColor="green"> -->
+							<!-- 									#39CCCC -->
+							<!-- 									<div class="info-box-content"> -->
+							<!-- 										<span class="info-box-text">Active Users</span> -->
+							<!-- 										<div class="info-box-number" id="time-part"></div> -->
+							<!-- 									</div> -->
+							<!-- 								</div> -->
+							<!-- 							</div> -->
+
+						</div>
+
+
+
+						<div class="row">
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box">
+
+									<input type="text" class="knob"
+										th:value="${percentDiskSpaceAvailable}" data-skin="tron"
+										data-thickness="0.3" data-angleArc="250"
+										data-angleOffset="-125" data-width="60" data-height="60"
+										data-fgColor="#00c0ef"><b>%</b>
+									<div class="info-box-content">
+										Free Space<span class="info-box-text"
+											th:text="${oepratingSystem}">Inactive Users</span>
+										<div class="info-box-number" id="asdf"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box">
+
+									<input type="text" class="knob" data-angleOffset="-90"
+										th:value="${totalDiskSpace}" data-skin="tron"
+										data-thickness="0.1" data-width="60" data-height="60"
+										data-fgColor="#00a65a">
+									<div class="info-box-content">
+										<span class="info-box-text">Total Disk Space (Gb)</span> <span
+											class="info-box-number" th:text="${totalDiskSpace}">2,000</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box mb-3">
+									<span class="info-box-icon bg-warning elevation-1"><i
+										class="fas fa-tasks"></i></span>
+									<div class="ribbon-wrapper">
+										<div class="ribbon bg-danger">Priority</div>
+									</div>
+									<div class="info-box-content">
+										<span class="info-box-text">Tasks</span> <span
+											class="info-box-number" th:text="${totaltasks}">356</span>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box">
+									<span class="info-box-icon bg-success elevation-1"><i
+										class="fas fa-print"></i></span>
+									<div class="info-box-content">
+										<span class="info-box-text">Reports</span>
+										<div class="info-box-number" id="time-part"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box mb-3">
+									<span class="info-box-icon bg-danger elevation-1"><i
+										class="far fa-copy"></i></span>
+
+									<div class="info-box-content">
+										<span class="info-box-text">Total Documents</span> <span
+											class="info-box-number" th:text="${totalDocuments}">2,000</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-sm-6 col-md-2">
+								<div class="info-box mb-3">
+									<span class="info-box-icon bg-primary elevation-1"><i
+										class="fas fa-chart-bar"></i></span>
+									<div class="ribbon-wrapper">
+										<div class="ribbon bg-primary">Data</div>
+									</div>
+									<div class="info-box-content">
+										<span class="info-box-text">Analytics</span> <span
+											class="info-box-number">2,200</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+
+
+						<div class="row">
+							<section class="col-lg-7 connectedSortable">
+
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-tasks mr-1"></i>
+											<!--<i class="ion ion-clipboard mr-1"></i> -->
+											To Do List
+										</h3>
+
+
+										<div class="card-tools">
+
+											<div th:if="${not #lists.isEmpty(data)}">
+												<!--<div th:if="${#lists.size(data) gt 4}"> -->
+												<ul class="pagination pagination-sm">
+													<li class="page-item"
+														th:each="i : ${#numbers.sequence(0,data.totalPages-1)}"><a
+														th:href="@{/(page=${i})}" th:text="${i+1}"
+														class="page-link"></a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool mr-2"
+												data-card-widget="maximize">
+												<i class="fas fa-expand fa-2x"></i>
+											</button>
+
+										</div>
+
+									</div>
+
+									<div class="card-body">
+
+										<ul class="todo-list" data-widget="todo-list">
+											<li th:each="task : ${data}"><span class="handle">
+													<i class="fas fa-ellipsis-v"></i> <i
+													class="fas fa-ellipsis-v"></i>
+											</span>
+												<div class="icheck-primary d-inline ml-2">
+													<input type="checkbox" th:id="${task.taskname}"
+														th:name="${task.id}" th:text="${task.taskname}"
+														class="form-checkbox todoCheckbox mr-5" /> <label
+														th:id="${task.id}" class="control-label ml-5"
+														th:for="${task.taskname}"> Done? </label>
+												</div> <span class="badge badge-danger ml-5"
+												th:text="${task.taskunitnumber}"></span><span
+												th:text="${task.taskunit}" class="ml-2"></span><i
+												class="far fa-clock ml-1"></i>
+
+
+												<div class="tools">
+													<a class="btn btn-sm btn-warning bg-orange mr-2 editBtn"
+														th:href="@{taskfindOne/(id=${task.id})}"><i
+														class="fas fa-edit"></i>Edit</a> <a
+														class="btn btn-sm btn-warning bg-red mr-2 delBtn"
+														th:href="@{taskdelete/(id=${task.id})}"><i
+														class="fas fa-trash-alt"></i>Delete</a>
+												</div></li>
+
+
+
+										</ul>
+
+									</div>
+
+									<div class="card-footer clearfix">
+										<div class="form-group row">
+											<div class="col-md-6">
+												<a class="btn btn-danger float-left bg-purple"
+													th:href="@{/tabletasks}"><i class="fas fa-tasks mr-1"></i>
+													View All </a>
+											</div>
+											<div class="col-md-6">
+												<a class="btn btn-success float-right newAddBookBtn"
+													href="#" data-toggle="modal" data-target="#exampleModal">
+													<i class="fas fa-plus"></i> Add Task
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="modal fade" id="todoCompletedModal" tabindex="-1"
+									role="dialog" aria-labelledby="todoCompletedLabel"
+									aria-hidden="true">
+									<div class="modal-dialog modal-lg modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header bg-success">
+												<h3 class="modal-title" id="todoCompletedLabel">
+													<i class="fas fa-tasks mr-1"></i>Task Completed
+												</h3>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+
+												<h4>Task marked as Completed. !!!</h4>
+
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-lg btn-success"
+													data-dismiss="modal">Ok</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="modal fade" id="todoInCompleteModal" tabindex="-1"
+									role="dialog" aria-labelledby="todoInCompleteLabel"
+									aria-hidden="true">
+									<div class="modal-dialog modal-lg modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header bg-pink">
+												<h3 class="modal-title" id="todoInCompleteLabel">
+													<i class="fas fa-tasks mr-1"></i>Task In-Complete
+												</h3>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+
+												<h4>Task marked as In-Complete. !!!</h4>
+
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-lg btn-primary bg-pink"
+													data-dismiss="modal">Ok</button>
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<!-- 	Modal Body -->
+								<div class="myForm">
+									<form th:action="@{/tasksave}" method="post" id="taskForm"
+										name="taskForm">
+										<div class="modal fade" id="exampleModal" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog modal-lg" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Create/Edit
+															Task</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div class="form-group" hidden="true">
+															<label for="id" class="col-form-label">ID:</label> <input
+																type="text" class="form-control btn-space" id="id"
+																name="id" />
+														</div>
+														<div class="row mb-3">
+															<label class="col-md-4 control-label text-right"
+																for="taskname">Task Name:</label>
+															<div class="col-md-8 pull-left">
+																<input type="text" class="form-control btn-space"
+																	id="taskname" name="taskname" />
+															</div>
+														</div>
+														<div class="row mb-3">
+															<label class="col-md-4 control-label text-right"
+																for="taskdescription">Description:</label>
+															<div class="col-md-8 pull-left">
+																<input type="text" class="form-control btn-space"
+																	id="taskdescription" name="taskdescription" />
+															</div>
+														</div>
+														<div class="row mb-3">
+															<label class="col-md-4 control-label text-right"
+																for="taskunitnumber">Unit Number:</label>
+															<div class="col-md-8 pull-left">
+																<!--	<input type="text" class="form-control btn-space" -->
+																<!--		id="taskunitnumber" name="taskunitnumber" /> -->
+																<select class="form-control col-md-4 dropdown-thin"
+																	id="taskunitnumber" name="taskunitnumber">
+																	<option value="1">One (1)</option>
+																	<option value="3">Three (3)</option>
+																	<option value="5">Five (5)</option>
+																	<option value="7">Seven (7)</option>
+																	<option value="10">Ten (10)</option>
+																	<option value="15">Fifteen (15)</option>
+																	<option value="20">Twety (20)</option>
+																	<option value="25">Twety Five (25)</option>
+																	<option value="30">Thrity (30)</option>
+
+																</select>
+															</div>
+														</div>
+														<div class="row mb-3">
+															<label class="col-md-4 control-label text-right"
+																for="taskunit">Unit:</label>
+															<div class="col-md-8 pull-left">
+																<!--	<input type="text" class="form-control btn-space" -->
+																<!--		id="taskunit" name="taskunit" /> -->
+																<select class="form-control col-md-4 dropdown-thin"
+																	id="taskunit" name="taskunit">
+																	<option value="days">Days</option>
+																	<option value="weeks">Weeks</option>
+																	<option value="months">Months</option>
+																	<option value="years">Years</option>
+																</select>
+															</div>
+														</div>
+
+														<div class="row mb-3">
+															<label class="col-md-4 control-label text-right"
+																for="users">Assign to:</label> <select
+																class="col-md-4 form-control" id="users" name="users"
+																multiple required>
+																<!--<option value="">None</option> -->
+																<option th:each="user : ${users}" th:value="${user.id}"
+																	th:text="${user.username}">User</option>
+
+															</select>
+														</div>
+
+
+														<div class="row mb-3">
+															<label class="col-md-4 control-label text-right"
+																for="taskcompleted">Completed?</label>
+															<div class="form-group clearfix">
+																<div class="icheck-danger d-inline">
+																	<input type="radio" id="radioSuccess1"
+																		name="taskcompleted" value="0" /> <label
+																		for="radioSuccess1"> False </label>
+																</div>
+																<div class="icheck-success d-inline">
+																	<input type="radio" id="radioSuccess2"
+																		name="taskcompleted" value="1" /> <label
+																		for="radioSuccess2"> True </label>
+																</div>
+															</div>
+														</div>
+
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn btn-sm btn-secondary btn-space"
+															data-dismiss="modal">Close</button>
+														<input type="submit"
+															class="btn btn-sm btn-primary btn-space" value="Save" />
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+
+								<!-- 	Modal Body End -->
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Delete Confirmation</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<!-- 					<p class="alert alert-danger">Are you sure you want to delete -->
+												<!-- 						it?</p> -->
+												<p>Are you sure you want to delete it?</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-sm btn-secondary"
+													data-dismiss="modal">Close</button>
+												<a href="" class="btn btn-sm btn-danger" id="delRef">Delete</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="card card-danger">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-chart-pie mr-1"></i> Role Count for Users
+										</h3>
+										<div class="card-tools">
+											<ul class="nav nav-pills ml-auto">
+												<li class="nav-item"><a class="nav-link bg-danger"
+													href="#" data-toggle="tab"><i
+														class="fas fa-sync-alt mr-1"></i> </a></li>
+
+											</ul>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="tab-content p-0">
+											<div class="chart tab-pane active" id="sdfrevenue-chart"
+												style="position: relative; height: 300px;">
+												<canvas id="myBarChart3"></canvas>
+												<script>
+													var barchartdata3 = "[[${barchartdata3}]]"
+												</script>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="card">
+									<div class="card-header border-transparent">
+										<h3 class="card-title">Top 3 Users</h3>
+
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool"
+												data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+											<button type="button" class="btn btn-tool"
+												data-card-widget="remove">
+												<i class="fas fa-times"></i>
+											</button>
+										</div>
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body p-0">
+										<div class="table-responsive">
+											<table class="table m-0">
+												<thead>
+													<tr>
+														<th>Id</th>
+														<th>UserName</th>
+														<th>Active?</th>
+														<th>Last name</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="user : ${top7Uesrs}">
+														<td th:text="${user.id}"></td>
+														<td th:text="${user.username}"></td>
+														<td><div th:if="${user.userenabled}">
+
+
+																<span class="badge badge-success">Yes</span>
+															</div>
+															<div th:if="${!user.userenabled}">
+
+
+																<span class="badge badge-danger">No</span>
+															</div></td>
+														<td th:text="${user.userlastname}"></td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<th>Id</th>
+														<th>UserName</th>
+														<th>Active?</th>
+														<th>Last name</th>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+										<!-- /.table-responsive -->
+									</div>
+
+
+									<!-- /.card-body -->
+									<div class="card-footer clearfix">
+										<a th:href="@{/userEdit}"
+											class="btn btn-sm btn-success float-left">Add New user</a> <a
+											th:href="@{/tableusers}"
+											class="btn btn-sm btn-secondary float-right">View All </a>
+									</div>
+									<!-- /.card-footer -->
+								</div>
+
+								<div class="card card-maroon">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-chart-pie mr-1"></i> Document count for
+											Users
+										</h3>
+										<div class="card-tools">
+											<ul class="nav nav-pills ml-auto">
+												<li class="nav-item"><a
+													class="nav-link active bg-danger" href="#"
+													data-toggle="tab"><i class="fas fa-sync-alt mr-1"></i>
+												</a></li>
+
+											</ul>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="tab-content p-0">
+											<div class="chart tab-pane active" id="sdfrevenue-chart"
+												style="position: relative; height: 300px;">
+												<canvas id="myBarChart2"></canvas>
+												<script>
+													var barchartdata2 = "[[${barchartdata2}]]"
+												</script>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="card card-danger">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-expand"></i> Maximizable
+										</h3>
+										<div class="card-tools">
+											<ul class="nav nav-pills ml-auto">
+												<li class="nav-item"><a
+													class="nav-link active bg-danger" href="#"
+													data-toggle="tab"><i class="fas fa-sync-alt mr-1"></i>
+												</a></li>
+												<li class="nav-item">
+													<button type="button" class="btn btn-tool"
+														data-card-widget="maximize">
+														<i class="fas fa-expand"></i>
+													</button>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="tab-content p-0">
+											<div class="card-body">The body of the card</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+
+
+
+							</section>
+
+							<section class="col-lg-5 connectedSortable">
+
+
+								<div class="card card-danger">
+									<div class="card-header">
+										<h5 class="card-title">
+											<i class="fas fa-sliders-h mr-2"></i>Goal Completion
+										</h5>
+
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool"
+												data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+											<button type="button" class="btn btn-tool"
+												data-card-widget="remove">
+												<i class="fas fa-times"></i>
+											</button>
+										</div>
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body">
+										<div class="row">
+											<!-- /.col -->
+											<div class="col-md-12">
+												<!-- 												<p class="text-center"> -->
+												<!-- 													<strong>Goal Completion</strong> -->
+												<!-- 												</p> -->
+
+												<div class="progress-group">
+													Users activated so far <span class="float-right"><b
+														th:text="${activeusers}"></b>/<span th:text="${totaUsers}"></span>
+													</span>
+													<div class="progress progress-sm">
+														<div class="progress-bar bg-success"
+															th:style="'width: ' + ${activeUserPercentage} + '%'"></div>
+													</div>
+												</div>
+
+												<div class="progress-group">
+													In-active users in the system <span class="float-right"><b
+														th:text="${inactiveusers}"></b>/<span
+														th:text="${totaUsers}"></span> </span>
+													<div class="progress progress-sm">
+														<div class="progress-bar bg-danger"
+															th:style="'width: ' + ${inactiveUserPercentage} + '%'"></div>
+													</div>
+												</div>
+
+												<!--<div class="progress-group"> -->
+												<!--Send Inquiries <span class="float-right"><b>250</b>/500</span> -->
+												<!--<div class="progress progress-sm"> -->
+												<!--<div class="progress-bar bg-warning" style="width: 50%"></div> -->
+												<!--</div> -->
+												<!--</div> -->
+
+											</div>
+										</div>
+									</div>
+									<!-- ./card-body -->
+									<div class="card-footer">
+										<div class="row">
+											<div class="col-sm-4 col-6">
+												<div class="description-block border-right">
+													<span class="description-percentage text-success"><i
+														class="fas fa-caret-up" th:text="${activeUserPercentage}"></i>
+														%</span>
+													<h5 class="description-header" th:text="${activeusers}"></h5>
+													<span class="description-text">Active Users</span>
+												</div>
+												<!-- /.description-block -->
+											</div>
+
+											<div class="col-sm-4 col-6">
+												<div class="description-block border-right">
+													<span class="description-percentage text-danger"><i
+														class="fas fa-caret-down"
+														th:text="${inactiveUserPercentage}"></i> %</span>
+													<h5 class="description-header" th:text="${inactiveusers}"></h5>
+													<span class="description-text">In-Active Users</span>
+												</div>
+												<!-- /.description-block -->
+											</div>
+											<div class="col-sm-4 col-6">
+												<div class="description-block border-right">
+													<span class="description-percentage text-primary"
+														th:text="${totaUsers}"></span>
+													<h5 class="description-header" th:text="${totaUsers}"></h5>
+													<span class="description-text">TOTAL USERS</span>
+												</div>
+												<!-- /.description-block -->
+											</div>
+
+										</div>
+										<!-- /.row -->
+									</div>
+									<!-- /.card-footer -->
+								</div>
+
+
+
+								<div class="card card-olive">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-chart-pie mr-1"></i> User Activation Status
+											Pie Chart
+										</h3>
+										<div class="card-tools">
+											<ul class="nav nav-pills ml-auto">
+												<li class="nav-item"><a
+													class="nav-link active bg-olive" href="#" data-toggle="tab"><i
+														class="fas fa-sync-alt mr-1"></i> </a></li>
+
+											</ul>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="tab-content p-0">
+											<div class="chart tab-pane active" id="sdfrevenue-chart"
+												style="position: relative; height: 300px;">
+												<canvas id="myPieChart"></canvas>
+												<script>
+													var chartData = "[[${projectStatusCnt}]]"
+												</script>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+								<div class="card card-lightblue">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-chart-pie mr-1"></i> User Activation Status
+											Bar Chart
+										</h3>
+										<div class="card-tools">
+											<ul class="nav nav-pills ml-auto">
+												<li class="nav-item"><a class="nav-link active"
+													href="#" data-toggle="tab"><i
+														class="fas fa-sync-alt mr-1"></i> </a></li>
+
+											</ul>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="tab-content p-0">
+											<div class="chart tab-pane active" id="sdfrevenue-chart"
+												style="position: relative; height: 300px;">
+												<canvas id="myBarChart"></canvas>
+												<script>
+													var barchartdata = "[[${barchartdata}]]"
+												</script>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+								<div class="card card-fuchsia card-tabs">
+									<div class="card-header p-0 pt-1">
+										<ul class="nav nav-tabs" id="custom-tabs-five-tab"
+											role="tablist">
+											<li class="nav-item"><a class="nav-link active"
+												id="custom-tabs-five-overlay-tab" data-toggle="pill"
+												href="#custom-tabs-five-overlay" role="tab"
+												aria-controls="custom-tabs-five-overlay"
+												aria-selected="true">Overlay</a></li>
+											<li class="nav-item"><a class="nav-link"
+												id="custom-tabs-five-overlay-dark-tab" data-toggle="pill"
+												href="#custom-tabs-five-overlay-dark" role="tab"
+												aria-controls="custom-tabs-five-overlay-dark"
+												aria-selected="false">Overlay Dark</a></li>
+											<li class="nav-item"><a class="nav-link"
+												id="custom-tabs-five-normal-tab" data-toggle="pill"
+												href="#custom-tabs-five-normal" role="tab"
+												aria-controls="custom-tabs-five-normal"
+												aria-selected="false">Normal Tab</a></li>
+										</ul>
+									</div>
+									<div class="card-body">
+										<div class="tab-content" id="custom-tabs-five-tabContent">
+											<div class="tab-pane fade show active"
+												id="custom-tabs-five-overlay" role="tabpanel"
+												aria-labelledby="custom-tabs-five-overlay-tab">
+												<div class="overlay-wrapper">
+													<div class="overlay">
+														<i class="fas fa-3x fa-sync-alt fa-spin"></i>
+														<div class="text-bold pt-2">Loading...</div>
+													</div>
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+													Proin malesuada lacus ullamcorper dui molestie, sit amet
+													congue quam finibus. Etiam ultricies nunc non magna feugiat
+													commodo. Etiam odio magna, mollis auctor felis vitae,
+													ullamcorper ornare ligula. Proin pellentesque tincidunt
+													nisi, vitae ullamcorper felis aliquam id. Pellentesque
+													habitant morbi tristique senectus et netus et malesuada
+													fames ac turpis egestas. Proin id orci eu lectus blandit
+													suscipit.
+												</div>
+											</div>
+											<div class="tab-pane fade" id="custom-tabs-five-overlay-dark"
+												role="tabpanel"
+												aria-labelledby="custom-tabs-five-overlay-dark-tab">
+												<div class="overlay-wrapper">
+													<div class="overlay dark">
+														<i class="fas fa-3x fa-sync-alt fa-spin"></i>
+														<div class="text-bold pt-2">Loading...</div>
+													</div>
+													Pellentesque vestibulum commodo nibh nec blandit. Maecenas
+													neque magna, iaculis tempus turpis ac, ornare sodales
+													tellus. Mauris eget blandit dolor. Quisque tincidunt
+													venenatis vulputate. Morbi euismod molestie tristique.
+													Vestibulum consectetur dolor a vestibulum pharetra. Donec
+													interdum placerat urna nec pharetra. Etiam eget dapibus
+													orci, eget aliquet urna.
+												</div>
+											</div>
+											<div class="tab-pane fade" id="custom-tabs-five-normal"
+												role="tabpanel"
+												aria-labelledby="custom-tabs-five-normal-tab">Mauris
+												tincidunt mi at erat gravida, eget tristique urna bibendum.
+												Mauris pharetra purus ut ligula tempor, et vulputate metus
+												facilisis. Lorem ipsum dolor sit amet, consectetur
+												adipiscing elit. Vestibulum ante ipsum primis in faucibus
+												orci luctus et ultrices posuere cubilia Curae; Maecenas
+												sollicitudin, nisi a luctus interdum, nisl ligula placerat
+												mi, quis posuere purus ligula eu lectus.</div>
+										</div>
+									</div>
+								</div>
+								<div class="card card-olive">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-chart-pie mr-1"></i> Launch Modal with
+											Overlay
+										</h3>
+										<div class="card-tools">
+											<ul class="nav nav-pills ml-auto">
+												<li class="nav-item"><a
+													class="nav-link active bg-danger" href="#"
+													data-toggle="tab"><i class="fas fa-sync-alt mr-1"></i>
+												</a></li>
+
+											</ul>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="tab-content p-0">
+											<button type="button" class="btn btn-sm btn-primary"
+												data-toggle="modal" data-target="#modal-overlay">
+												Launch Modal with Overlay</button>
+											<button type="button" class="btn  btn-sm btn-success"
+												data-toggle="modal" data-target="#modal-sm">Launch
+												Small Modal</button>
+											<button type="button" class="btn  btn-sm btn-danger"
+												data-toggle="modal" data-backdrop="static"
+												data-target="#modal-lg">Launch Large Modal</button>
+										</div>
+									</div>
+									<div class="modal fade" id="modal-overlay">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div
+													class="overlay d-flex justify-content-center align-items-center">
+													<i class="fas fa-2x fa-sync fa-spin"></i>
+												</div>
+												<div class="modal-header">
+													<h4 class="modal-title">Default Modal</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>One fine body&hellip;</p>
+												</div>
+												<div class="modal-footer justify-content-between">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save
+														changes</button>
+												</div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+
+									<div class="modal fade" id="modal-sm">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Small Modal</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>One fine body&hellip;</p>
+												</div>
+												<div class="modal-footer justify-content-between">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save
+														changes</button>
+												</div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+									<!-- /.modal -->
+
+									<div class="modal fade" id="modal-lg">
+										<div class="modal-dialog modal-dialog-centered modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Large Modal Vertically
+														Centered</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>One fine body&hellip;</p>
+												</div>
+												<div class="modal-footer justify-content-between">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save
+														changes</button>
+												</div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+								</div>
+
+
+								<div class="card card-navy card-tabs">
+									<div class="card-header p-0 pt-1">
+										<ul class="nav nav-tabs" id="custom-tabs-two-tab"
+											role="tablist">
+											<li class="pt-2 px-3"><h3 class="card-title">Card
+													Title</h3></li>
+											<li class="nav-item"><a class="nav-link active"
+												id="custom-tabs-two-home-tab" data-toggle="pill"
+												href="#custom-tabs-two-home" role="tab"
+												aria-controls="custom-tabs-two-home" aria-selected="true">Home</a>
+											</li>
+											<li class="nav-item"><a class="nav-link"
+												id="custom-tabs-two-profile-tab" data-toggle="pill"
+												href="#custom-tabs-two-profile" role="tab"
+												aria-controls="custom-tabs-two-profile"
+												aria-selected="false">Profile</a></li>
+											<li class="nav-item"><a class="nav-link"
+												id="custom-tabs-two-messages-tab" data-toggle="pill"
+												href="#custom-tabs-two-messages" role="tab"
+												aria-controls="custom-tabs-two-messages"
+												aria-selected="false">Messages</a></li>
+											<li class="nav-item"><a class="nav-link"
+												id="custom-tabs-two-settings-tab" data-toggle="pill"
+												href="#custom-tabs-two-settings" role="tab"
+												aria-controls="custom-tabs-two-settings"
+												aria-selected="false">Settings</a></li>
+										</ul>
+									</div>
+									<div class="card-body">
+										<div class="tab-content" id="custom-tabs-two-tabContent">
+											<div class="tab-pane fade show active"
+												id="custom-tabs-two-home" role="tabpanel"
+												aria-labelledby="custom-tabs-two-home-tab">Lorem ipsum
+												dolor sit amet, consectetur adipiscing elit. Proin malesuada
+												lacus ullamcorper dui molestie, sit amet congue quam
+												finibus.</div>
+											<div class="tab-pane fade" id="custom-tabs-two-profile"
+												role="tabpanel"
+												aria-labelledby="custom-tabs-two-profile-tab">Mauris
+												tincidunt mi at erat gravida, eget tristique urna bibendum.
+												Mauris pharetra purus ut ligula tempor, et vulputate metus
+												facilisis.</div>
+											<div class="tab-pane fade" id="custom-tabs-two-messages"
+												role="tabpanel"
+												aria-labelledby="custom-tabs-two-messages-tab">Morbi
+												turpis dolor, vulputate vitae felis non, tincidunt congue
+												mauris. Phasellus volutpat augue id mi placerat mollis.
+												Vivamus faucibus eu massa eget condimentum. Fusce nec
+												hendrerit sem, ac tristique nulla.</div>
+											<div class="tab-pane fade" id="custom-tabs-two-settings"
+												role="tabpanel"
+												aria-labelledby="custom-tabs-two-settings-tab">
+												Pellentesque vestibulum commodo nibh nec blandit. Maecenas
+												neque magna, iaculis tempus turpis ac, ornare sodales
+												tellus. Mauris eget blandit dolor.</div>
+										</div>
+									</div>
+								</div>
+
+							</section>
+
+
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+		</div>
+	</div>
+
+
+
+
+
+
+
+</body>
+
+
+
+
+</html>

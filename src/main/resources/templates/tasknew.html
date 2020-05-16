@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout3}">
+<head>
+<style>
+.error {
+	color: red;
+	text-align: left;
+}
+.dropdown-thin {
+    height: 25px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: smaller;
+    width:auto;
+}
+
+</style>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 th:if="${not #strings.isEmpty(creatingtask)}">Create
+									New Task</h1>
+								<h1 th:if="${not #strings.isEmpty(editingtask)}">Edit task</h1>
+								<!--<h1>Registration</h1> -->
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<div sec:authorize="isAuthenticated()">
+										<li class="breadcrumb-item"><a th:href="@{/}">Home /
+										</a></li>
+									</div>
+									<li class="breadcrumb-item active">Registration</li>
+
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="content">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div th:if="!${#request.userPrincipal}">
+									<div class="card-header">
+										<h3 class="card-title">
+											Welcome !! Please complete the Registration details and
+											Submit. <a th:href="@{/login}">Already Registered?</a>
+										</h3>
+									</div>
+								</div>
+
+								<!-- /.card-header -->
+								<div class="card-body">
+									<!--<p class="login-box-msg">Registration</p> -->
+									<div class="d-flex align-items-center justify-content-center">
+										<h4 th:if="${not #strings.isEmpty(somemsg)}">
+											<font color="red">Hello "<span th:text="${somemsg}"></span>"
+												! Please fix the errors highlighted before Submitting.
+											</font>
+										</h4>
+										<!-- 									<h4 th:if="${not #strings.isEmpty(somemsg)}"><font color="red">Hello <span th:text="${somemsg}"></span></font></h4> -->
+									</div>
+
+
+
+
+
+
+
+									<form class="form-group" th:action="@{/taskEdit}"
+										th:object="${apptask}" method="post">
+
+										<input th:type="hidden" id="id" name="id"
+											th:field="${apptask.id}" />
+
+										<div th:if="${not #strings.isEmpty(creatingtask)}">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="taskname">Task Name: </label> <input
+													class="form-control" type="text"
+													th:field="${apptask.taskname}" placeholder="Taskname" />
+												<div class="input-group-append">
+													<div class="input-group-text">
+														<span class="fas fa-task"></span>
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+
+										<div th:if="${not #strings.isEmpty(editingtask)}">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="taskname">Task Name: </label> <input
+													class="form-control" type="text"
+													th:field="${apptask.taskname}" readonly />
+												<div class="input-group-append">
+													<div class="input-group-text">
+														<span class="fas fa-task"></span>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="taskname"></label>
+											<p class="error" th:if="${#fields.hasErrors('taskname')}"
+												th:errors="*{taskname}" />
+										</div>
+
+
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="tasktaskdescription">Description: </label> <input
+												class="form-control" type="text"
+												th:field="${apptask.taskdescription}"
+												placeholder="Task description" />
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="taskdescription"></label>
+											<p class="error"
+												th:if="${#fields.hasErrors('taskdescription')}"
+												th:errors="*{taskdescription}" />
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="taskunitnumber">Unit Number: </label>
+											<!-- <input -->
+											<!-- class="form-control" type="number" -->
+											<!-- min="1" max="100" th:field="${apptask.taskunitnumber}" placeholder="taskunitnumber" /> -->
+											<select class="form-control col-md-2 dropdown-thin" id="taskunitnumber" name="taskunitnumber">
+												<option value="1">One (1)</option>
+												<option value="3">Three (3)</option>
+												<option value="5">Five (5)</option>
+												<option value="7">Seven (7)</option>
+												<option value="10">Ten (10)</option>
+												<option value="15">Fifteen (15)</option>
+												<option value="20">Twety (20)</option>
+												<option value="25">Twety Five (25)</option>
+												<option value="30">Thrity (30)</option>
+
+											</select>
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="taskunitnumber"></label>
+<!-- 											<p class="error" -->
+<!-- 												th:if="${#fields.hasErrors('taskunitnumber')}" -->
+<!-- 												th:errors="*{taskunitnumber}" /> -->
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="taskunit">Unit: </label>
+
+											<!--<input -->
+											<!--class="form-control" type="text" -->
+											<!-- th:field="${apptask.taskunit}" placeholder="taskunit" /> -->
+											<select class="form-control col-md-2 dropdown-thin" id="taskunit" name="taskunit">
+												<option value="days">Days</option>
+												<option value="weeks">Weeks</option>
+												<option value="months">Months</option>
+												<option value="years">Years</option>
+											</select>
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="taskunit"></label>
+											<p class="error" th:if="${#fields.hasErrors('taskunit')}"
+												th:errors="*{taskunit}" />
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right" for="users">Assign to User(s):
+											</label> <select class="form-control" th:field="${apptask.users}"
+												id="roles" multiple>
+
+												<option th:each="user : ${apptaskusers}"
+													th:value="${user.id}" th:text="${user.username}">User(s)
+												</option>
+
+											</select>
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right" for="users"></label>
+											<p class="error" th:if="${#fields.hasErrors('users')}"
+												th:errors="*{users}" />
+										</div>
+										
+										<div class="input-group mb-3">
+										<label class="col-md-2 control-label text-right" for="roles">Completed?
+											</label> 
+											<div class="form-group clearfix">
+												<div class="icheck-danger d-inline">
+													<input type="radio" name="r3" checked id="radioSuccess1" th:field="${apptask.taskcompleted}" value="0">
+													<label for="radioSuccess1"> In-Complete </label>
+												</div>
+												<div class="icheck-success d-inline">
+													<input type="radio" name="r3" id="radioSuccess2" th:field="${apptask.taskcompleted}" value="1" > <label
+														for="radioSuccess2"> Complete </label>
+												</div>
+											</div>
+										</div>
+
+
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="taskaddress"></label>
+											<div class="icheck-primary">
+												<input type="checkbox" id="agreeTerms" name="terms"
+													value="agree"> <label for="agreeTerms"> I
+													agree to the <a href="#">terms</a>
+												</label>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="taskaddress"></label>
+												<!--<label class="col-md-2 control-label text-right" for="taskaddress"></label> -->
+												<button type="submit"
+													class="col-10 btn btn-primary btn-block pull-right ">Submit</button>
+												<!--<a href="/" class="btn btn-primary btn-block">Register</a> -->
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+
+		</div>
+	</div>
+
+</body>
+
+</html>

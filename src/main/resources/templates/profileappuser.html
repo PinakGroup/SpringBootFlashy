@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<head>
+<style>
+.error {
+	color: red;
+	text-align: left;
+}
+</style>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Create Profile</h1>
+								<!--<h1>Registration</h1> -->
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a th:href="@{/}">Home / </a></li>
+									<li class="breadcrumb-item active">Profile</li>
+
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="content">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+
+								<div class="card-body">
+									<!-- 									<p class="login-box-msg">Create Profile</p> -->
+									<form class="form-group" th:action="@{/appUserProfile}"
+										th:object="${appUserProfile}" method="post">
+
+										<input th:type="hidden" id="id" name="id"
+											th:field="${appUserProfile.id}" />
+										<div class="row">
+											<div class="jumbotron col-md-6 bg-transparent">
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="designation">Designation: </label> <input
+														class="form-control" type="text"
+														th:field="${appUserProfile.designation}"
+														placeholder="Designation" />
+
+												</div>
+
+
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="designation"></label>
+													<p class="error"
+														th:if="${#fields.hasErrors('designation')}"
+														th:errors="*{designation}" />
+												</div>
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="followers">Followers: </label> <input
+														class="form-control" type="text"
+														th:field="${appUserProfile.followers}"
+														placeholder="followers">
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="followers"></label>
+													<p class="error" th:if="${#fields.hasErrors('followers')}"
+														th:errors="*{followers}" />
+												</div>
+
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="friends">Friends: </label> <input
+														class="form-control" type="text"
+														th:field="${appUserProfile.friends}" placeholder="Friends" />
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="friends"></label>
+													<p class="error" th:if="${#fields.hasErrors('friends')}"
+														th:errors="*{friends}" />
+												</div>
+
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right" for="fans">Fans:
+													</label> <input class="form-control" type="text"
+														th:field="${appUserProfile.fans}" placeholder="Fans" />
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right" for="fans"></label>
+													<p class="error" th:if="${#fields.hasErrors('fans')}"
+														th:errors="*{fans}" />
+												</div>
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="nickname">Nickname: </label> <input
+														class="form-control" type="text"
+														th:field="${appUserProfile.nickname}"
+														placeholder="Nickname" />
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="nickname"></label>
+													<p class="error" th:if="${#fields.hasErrors('nickname')}"
+														th:errors="*{nickname}" />
+												</div>
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="education">Education: </label> <input
+														class="form-control" type="text"
+														th:field="${appUserProfile.education}"
+														placeholder="Education" />
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="education"></label>
+													<p class="error" th:if="${#fields.hasErrors('education')}"
+														th:errors="*{education}" />
+												</div>
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="location">Location: </label> <input
+														class="form-control" type="text"
+														th:field="${appUserProfile.location}"
+														placeholder="Location" />
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="location"></label>
+													<p class="error" th:if="${#fields.hasErrors('location')}"
+														th:errors="*{location}" />
+												</div>
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="notes">Notes: </label> <input class="form-control"
+														type="text" th:field="${appUserProfile.notes}"
+														placeholder="Notes" />
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="notes"></label>
+													<p class="error" th:if="${#fields.hasErrors('notes')}"
+														th:errors="*{notes}" />
+												</div>
+												
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="notes">Skills: </label> <select class="form-control"
+														th:field="*{skills}">
+														<option
+															th:each="skill : ${T(com.spring.boot.rocks.model.AppUserProfileSkills).values()}"
+															th:value="${skill.name()}" th:text="${skill.name()}"></option>
+													</select>
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="skills"></label>
+													<p class="error" th:if="${#fields.hasErrors('skills')}"
+														th:errors="*{skills}" />
+												</div>
+
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="nickname"></label>
+													<div class="icheck-primary">
+														<input type="checkbox" id="agreeTerms" name="terms"
+															value="agree"> <label for="agreeTerms"> I
+															agree to the <a href="#">terms</a>
+														</label>
+													</div>
+												</div>
+												
+												
+											</div>
+
+
+											<div class="jumbotron col-md-6 bg-transparent">
+
+												
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="whitepapers">Whitepapers: </label>
+													<textarea rows="4" cols="4" class="form-control"
+														th:field="${appUserProfile.whitepapers}"
+														placeholder="Whitepapers"></textarea>
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="whitepapers"></label>
+													<p class="error"
+														th:if="${#fields.hasErrors('whitepapers')}"
+														th:errors="*{whitepapers}" />
+												</div>
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="testimonials">Testimonials: </label>
+													<textarea rows="4" cols="4" class="form-control"
+														th:field="${appUserProfile.testimonials}"
+														placeholder="Testimonials"></textarea>
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="testimonials"></label>
+													<p class="error"
+														th:if="${#fields.hasErrors('testimonials')}"
+														th:errors="*{testimonials}" />
+												</div>
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="inventions">Inventions: </label>
+													<textarea rows="4" cols="4" class="form-control"
+														th:field="${appUserProfile.inventions}"
+														placeholder="Inventions"></textarea>
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="inventions"></label>
+													<p class="error" th:if="${#fields.hasErrors('inventions')}"
+														th:errors="*{inventions}" />
+												</div>
+												<div class="input-group mb-3">
+													<label class="col-md-3 control-label text-right"
+														for="nickname">Awards: </label>
+													<textarea rows="4" cols="4" class="form-control"
+														th:field="${appUserProfile.awards}" placeholder="Awards"></textarea>
+												</div>
+												<div class="input-group">
+													<label class="col-md-3 control-label text-right"
+														for="awards"></label>
+													<p class="error" th:if="${#fields.hasErrors('awards')}"
+														th:errors="*{awards}" />
+												</div>
+												
+
+											</div>
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-3 control-label text-right"
+												for="nickname"></label>
+											<!--<label class="col-md-3 control-label text-right" for="nickname"></label> -->
+											<button type="submit"
+												class="btn btn-primary pull-right btn-block">Submit</button>
+											<!--<a href="/" class="btn btn-primary btn-block">Register</a> -->
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+
+		</div>
+	</div>
+
+</body>
+
+</html>

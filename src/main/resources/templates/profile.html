@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout-min5_3}">
+<head>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>My Profile</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">User Profile</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div th:if="${#strings.isEmpty(noProfileFound)}">
+							<div class="col-md-3">
+								<div class="card card-primary">
+
+									<div class="card-body box-profile">
+										<div class="text-center">
+											<h5 class="text-muted">No Profile Found</h5>
+											<div class="card-footer text-bold">
+												<a th:href="@{/appUserProfile}"
+													class="btn btn-primary btn-block bg-primary font-weight-bolder">Create
+													Profile</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div th:if="${not #strings.isEmpty(noProfileFound)}">
+							<div class="row">
+								<div class="col-md-3">
+
+									<!-- Profile Image -->
+
+									<div class="card card-primary card-outline">
+
+										<div class="card-body box-profile">
+											<div class="text-center">
+												<div th:if="${appuserprofile.profilepic == null}">
+													<img class="profile-user-img img-fluid img-circle"
+														src="img/user4-128x128.jpg" alt="User profile picture">
+												</div>
+
+												<div th:if="${appuserprofile.profilepic != null}">
+													<img class="img-circle"
+														th:src="@{'/appUserProfile/' + ${appuserprofile.id} + '/appUserProfileimage'}"
+														width="100" height="100" />
+												</div>
+												<a th:href="@{'/appUserProfile/' + ${appuserprofile.id} + '/image'}"
+													role="button">Change</a>
+
+											</div>
+
+
+											<p class="profile-username text-center"
+												th:text="${appuserprofile.designation}">Principal
+												Architect</p>
+
+											<ul class="list-group list-group-unbordered mb-3">
+												<li class="list-group-item"><b>Followers</b> <a
+													class="float-right" th:text="${appuserprofile.followers}">1,322</a></li>
+												<li class="list-group-item"><b>Friends</b> <a
+													class="float-right" th:text="${appuserprofile.friends}">543</a></li>
+												<li class="list-group-item"><b>Fans</b> <a
+													class="float-right" th:text="${appuserprofile.fans}">13,287</a></li>
+												<li class="list-group-item"><b>Last Updated</b> <a
+													class="float-right" th:text="${appuserprofile.datemodified}">0</a></li>
+											</ul>
+												<a th:href="@{'/appUserProfile/' + ${appuserprofile.id}}"
+													role="button" class="btn btn-danger btn-block"><b>Edit Profile</b></a>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="col-md-9">
+									<div class="card card-primary">
+										<div class="card-header">
+											<h3 class="card-title">About Me</h3>
+										</div>
+										<div class="card-body">
+											<strong> Nick Name</strong>
+
+											<p class="text-muted" th:text="${appuserprofile.nickname}">SomeFirstName SomeLastName</p>
+
+											<hr>
+											<strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+											<p class="text-muted" th:text="${appuserprofile.education}">M.S.
+												in Computer Science from the University of SomeVille</p>
+
+											<hr>
+
+											<strong><i class="fas fa-map-marker-alt mr-1"></i>
+												Location</strong>
+
+											<p class="text-muted" th:text="${appuserprofile.location}">Malibu,
+												California</p>
+
+											<hr>
+
+											<strong><i class="fas fa-pencil-alt mr-1"></i>
+												Skills</strong>
+
+											<p class="text-muted" th:text="${appuserprofile.skills}">Skills
+											</p>
+
+											<hr>
+
+											<strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+											<p class="text-muted" th:text="${appuserprofile.notes}">Lorem
+												ipsum dolor sit amet, consectetur adipiscing elit. Etiam
+												fermentum enim neque.</p>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="card card-success card-tabs">
+								<div class="card-header p-0 pt-1">
+									<ul class="nav nav-tabs" id="custom-tabs-two-tab"
+										role="tablist">
+										<li class="pt-2 px-3"><h3 class="card-title"></h3></li>
+										<li class="nav-item"><a class="nav-link active"
+											id="custom-tabs-two-home-tab" data-toggle="pill"
+											href="#custom-tabs-two-home" role="tab"
+											aria-controls="custom-tabs-two-home" aria-selected="true">WhitePapers</a>
+										</li>
+										<li class="nav-item"><a class="nav-link"
+											id="custom-tabs-two-profile-tab" data-toggle="pill"
+											href="#custom-tabs-two-profile" role="tab"
+											aria-controls="custom-tabs-two-profile" aria-selected="false">Testimonials</a></li>
+										<li class="nav-item"><a class="nav-link"
+											id="custom-tabs-two-messages-tab" data-toggle="pill"
+											href="#custom-tabs-two-messages" role="tab"
+											aria-controls="custom-tabs-two-messages"
+											aria-selected="false">Inventions</a></li>
+										<li class="nav-item"><a class="nav-link"
+											id="custom-tabs-two-settings-tab" data-toggle="pill"
+											href="#custom-tabs-two-settings" role="tab"
+											aria-controls="custom-tabs-two-settings"
+											aria-selected="false">Awards</a></li>
+									</ul>
+								</div>
+								<div class="card-body">
+									<div class="tab-content" id="custom-tabs-two-tabContent">
+										<div class="tab-pane fade show active"
+											id="custom-tabs-two-home" role="tabpanel"
+											aria-labelledby="custom-tabs-two-home-tab"
+											th:text="${appuserprofile.whitepapers}"></div>
+										<div class="tab-pane fade" id="custom-tabs-two-profile"
+											role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab"
+											th:text="${appuserprofile.testimonials}"></div>
+										<div class="tab-pane fade" id="custom-tabs-two-messages"
+											role="tabpanel"
+											aria-labelledby="custom-tabs-two-messages-tab"
+											th:text="${appuserprofile.inventions}"></div>
+										<div class="tab-pane fade" id="custom-tabs-two-settings"
+											role="tabpanel"
+											aria-labelledby="custom-tabs-two-settings-tab"
+											th:text="${appuserprofile.awards}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</body>
+</html>

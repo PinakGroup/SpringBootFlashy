@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout3}">
+<head>
+<style>
+.error {
+	color: red;
+	text-align: left;
+}
+</style>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 th:if="${not #strings.isEmpty(creatinguser)}">New User
+									Registration</h1>
+								<h1 th:if="${not #strings.isEmpty(editinguser)}">Edit user</h1>
+								<!--<h1>Registration</h1> -->
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<div sec:authorize="isAuthenticated()">
+										<li class="breadcrumb-item"><a th:href="@{/}">Home /
+										</a></li>
+									</div>
+									<li class="breadcrumb-item active">Registration</li>
+
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="content">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div th:if="!${#request.userPrincipal}">
+									<div class="card-header">
+										<h3 class="card-title">
+											Welcome !! Please complete the Registration details and
+											Submit. <a th:href="@{/login}">Already Registered?</a>
+										</h3>
+									</div>
+								</div>
+
+								<!-- /.card-header -->
+								<div class="card-body">
+									<!--<p class="login-box-msg">Registration</p> -->
+									<div class="d-flex align-items-center justify-content-center">
+										<h4 th:if="${not #strings.isEmpty(somemsg)}">
+											<font color="red">Hello "<span th:text="${somemsg}"></span>"
+												! Please fix the errors highlighted before Submitting.
+											</font>
+										</h4>
+										<!-- 									<h4 th:if="${not #strings.isEmpty(somemsg)}"><font color="red">Hello <span th:text="${somemsg}"></span></font></h4> -->
+									</div>
+									<form class="form-group" th:action="@{/userEdit}"
+										th:object="${appuser}" method="post">
+
+										<input th:type="hidden" id="id" name="id"
+											th:field="${appuser.id}" />
+
+										<div th:if="${not #strings.isEmpty(creatinguser)}">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="username">Username: </label> <input
+													class="form-control" type="text"
+													th:field="${appuser.username}" placeholder="Username" />
+												<div class="input-group-append">
+													<div class="input-group-text">
+														<span class="fas fa-user"></span>
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+
+										<div th:if="${not #strings.isEmpty(editinguser)}">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="username">Username: </label> <input
+													class="form-control" type="text"
+													th:field="${appuser.username}" readonly />
+												<div class="input-group-append">
+													<div class="input-group-text">
+														<span class="fas fa-user"></span>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="username"></label>
+											<p class="error" th:if="${#fields.hasErrors('username')}"
+												th:errors="*{username}" />
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="password">Password: </label> <input
+												class="form-control" type="password"
+												th:field="${appuser.password}" placeholder="Password">
+											<div class="input-group-append">
+												<div class="input-group-text">
+													<span class="fas fa-lock"></span>
+												</div>
+											</div>
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="password"></label>
+											<p class="error" th:if="${#fields.hasErrors('password')}"
+												th:errors="*{password}" />
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="passwordConfirm">Confirm Password: </label> <input
+												class="form-control" type="password"
+												th:field="${appuser.passwordConfirm}"
+												placeholder="Confirm Password">
+											<div class="input-group-append">
+												<div class="input-group-text">
+													<span class="fas fa-lock"></span>
+												</div>
+											</div>
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="passwordConfirm"></label>
+											<p class="error"
+												th:if="${#fields.hasErrors('passwordConfirm')}"
+												th:errors="*{passwordConfirm}" />
+										</div>
+
+
+										<div th:if="${not #strings.isEmpty(creatinguser)}">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="useremail">Email: </label> <input class="form-control"
+													type="text" th:field="${appuser.useremail}"
+													placeholder="Email" />
+												<div class="input-group-append">
+													<div class="input-group-text">
+														<span class="fas fa-envelope"></span>
+													</div>
+												</div>
+											</div>
+											<div class="input-group">
+												<label class="col-md-2 control-label text-right"
+													for="useremail"></label>
+												<p class="error" th:if="${#fields.hasErrors('useremail')}"
+													th:errors="*{useremail}" />
+											</div>
+										</div>
+
+
+										<div th:if="${not #strings.isEmpty(editinguser)}">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="useremail">Email: </label> <input class="form-control"
+													type="text" th:field="${appuser.useremail}" readonly />
+												<div class="input-group-append">
+													<div class="input-group-text">
+														<span class="fas fa-envelope"></span>
+													</div>
+												</div>
+											</div>
+											<div class="input-group">
+												<label class="col-md-2 control-label text-right"
+													for="useremail"></label>
+												<p class="error" th:if="${#fields.hasErrors('useremail')}"
+													th:errors="*{useremail}" />
+											</div>
+										</div>
+
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="userfirstname">First name: </label> <input
+												class="form-control" type="text"
+												th:field="${appuser.userfirstname}" placeholder="First name" />
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="userfirstname"></label>
+											<p class="error"
+												th:if="${#fields.hasErrors('userfirstname')}"
+												th:errors="*{userfirstname}" />
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="userlastname">Last name: </label> <input
+												class="form-control" type="text"
+												th:field="${appuser.userlastname}" placeholder="Last name" />
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="userlastname"></label>
+											<p class="error" th:if="${#fields.hasErrors('userlastname')}"
+												th:errors="*{userlastname}" />
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="useraddress">Address: </label> <input
+												class="form-control" type="text"
+												th:field="${appuser.useraddress}" placeholder="Address" />
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right"
+												for="useraddress"></label>
+											<p class="error" th:if="${#fields.hasErrors('useraddress')}"
+												th:errors="*{useraddress}" />
+										</div>
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right" for="roles">Role(s):
+											</label> <select class="form-control" th:field="${appuser.roles}"
+												id="roles" multiple>
+
+												<option th:each="role : ${appuserroles}"
+													th:value="${role.id}" th:text="${role.name}">Role
+												</option>
+
+											</select>
+										</div>
+										<div class="input-group">
+											<label class="col-md-2 control-label text-right" for="roles"></label>
+											<p class="error" th:if="${#fields.hasErrors('roles')}"
+												th:errors="*{roles}" />
+										</div>
+
+										<div sec:authorize="hasAuthority('ADMIN')">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right" for="roles">Activated?
+												</label>
+												<div class="form-group clearfix">
+													<div class="icheck-danger d-inline">
+														<input type="radio" name="r3" checked id="radioSuccess1"
+															th:field="${appuser.userenabled}" value="0"> <label
+															for="radioSuccess1"> Inactive </label>
+													</div>
+													<div class="icheck-success d-inline">
+														<input type="radio" name="r3" id="radioSuccess2"
+															th:field="${appuser.userenabled}" value="1"> <label
+															for="radioSuccess2"> Active </label>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="input-group mb-3">
+											<label class="col-md-2 control-label text-right"
+												for="useraddress"></label>
+											<div class="icheck-primary">
+												<input type="checkbox" id="agreeTerms" name="terms"
+													value="agree"> <label for="agreeTerms"> I
+													agree to the <a href="#">terms</a>
+												</label>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="input-group mb-3">
+												<label class="col-md-2 control-label text-right"
+													for="useraddress"></label>
+												<!--<label class="col-md-2 control-label text-right" for="useraddress"></label> -->
+												<button type="submit"
+													class="col-10 btn btn-primary btn-block pull-right ">Register</button>
+												<!--<a href="/" class="btn btn-primary btn-block">Register</a> -->
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+
+		</div>
+	</div>
+
+</body>
+
+</html>

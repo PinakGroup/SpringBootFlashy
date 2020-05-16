@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="all,follow">
+<title th:text="${metaTitle} ? ${metaTitle} : 'SpringBoot Rocks'"></title>
+<style>
+.dropdown-menu>a:hover {
+	/* 	background-color: #33BEFF; #5cb85c */
+	/* 	background-color: #F3F694  #90EE90  #b3ff99 */
+	background-color: #33BEFF;
+	text-decoration: none;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+	/* 	background-color: #33BEFF; */
+	/* 		background-color: #F3F694 */
+	/* 	background-color: #b3ff99; */
+	/* 	padding: 10px; */
+	/* 	font-size: 18px; */
+	/* 	font-weight: bold; */
+	
+}
+
+div.ui-tooltip {
+	max-width: 400px;
+}
+/* table /* give class of table*/ */
+/* { */
+/*    table-layout: fixed; */
+/* } */
+
+/* table td */
+/* { */
+/*   word-wrap:break-word;    */
+/*   overflow: hidden; */
+/* } */
+</style>
+
+
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/css/all.min.css}">
+<link rel="stylesheet"
+	th:href="@{/webjars/ionicons/css/ionicons.min.css}">
+<link rel="stylesheet"
+	th:href="@{/css/tempusdominus-bootstrap-4.min.css}">
+<link rel="stylesheet" th:href="@{/css/icheck-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/jqvmap.min.css}">
+<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+<link rel="stylesheet" th:href="@{/css/OverlayScrollbars.min.css}">
+<link rel="stylesheet" th:href="@{/css/daterangepicker.css}">
+<link rel="stylesheet" th:href="@{/css/summernote-bs4.css}">
+<link rel="stylesheet" th:href="@{/css/dataTables.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.css}">
+<!-- <link -->
+<!-- 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" -->
+<!-- 	rel="stylesheet"> -->
+
+
+</head>
+
+<body>
+	<div sec:authorize="isAuthenticated()">
+		<div th:replace="fragments/header :: header"></div>
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+	</div>
+	<section layout:fragment="content"></section>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/js/responsive.bootstrap4.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script th:src="@{/js/adminlte.js}"></script>
+<script th:src="@{/js/demo.js}"></script>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Delete Confirmation</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!--<p class="alert alert-danger">Are you sure you want to delete -->
+				<!--	it?</p> -->
+				<p>Are you sure you want to delete it?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-secondary"
+					data-dismiss="modal">Cancel</button>
+				<a href="" class="btn btn-sm btn-danger" id="delRef">Delete</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function() {
+
+		$('#tableitems').DataTable({
+			"lengthMenu" : [ [ 5, 7, 10, 25, 50, 100, -1 ],
+				[ 5, 7, 10, 25, 50, 100, "All" ] ],
+// 			"paging" : true,
+// 			"lengthChange" : false,
+// 			"searching" : false,
+// 			"ordering" : true,
+// 			"info" : true,
+			"autoWidth" : false,
+			"responsive" : true,
+			
+		});
+		
+		$('body').on('click','.delBtn' ,function(event){
+// 		$('.table .delBtn').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$('#myModal #delRef').attr('href', href);
+			$('#myModal').modal();
+		});
+
+	});
+</script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('body').on('click','.activateAppUserBtn' ,function(event){
+// 	$('.activateAppUserBtn').on('click',function(event){
+		event.preventDefault();
+		
+		var href= $(this).attr('href');
+		var text= $(this).text();
+		$.get(href,function(user,status){
+			$('.myForm #id').text(user.id);
+			$('.myForm #username').text(user.username);
+			$('.myForm #useremail').text(user.useremail);
+			$('.myForm #userfirstname').text(user.userfirstname);
+			$('.myForm #userlastname').text(user.userlastname);
+			$('.myForm #useraddress').text(user.useraddress);
+			$('.myForm #userenabled').text(user.userenabled);
+			$('.myForm #userconfirmationtoken').text(user.userconfirmationtoken);
+			$('.myForm #userdatecreated').text(user.userdatecreated);
+			$('.myForm #usercreatedby').text(user.usercreatedby);
+			$('.myForm #userdatemodified').text(user.userdatemodified);
+			$('.myForm #usermodifiedby').text(user.usermodifiedby);
+			
+		});
+		
+		
+		$('.myForm #exampleModal').modal();
+	});
+});
+</script>
+
+<script>
+	$(function() {
+		$(document).tooltip({
+			open : function(event, ui) {
+				ui.tooltip.css("max-width", "400px");
+			}
+		});
+	});
+</script>
+</html>

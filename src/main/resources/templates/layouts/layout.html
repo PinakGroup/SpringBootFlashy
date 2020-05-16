@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="all,follow">
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/css/all.min.css}">
+<link rel="stylesheet"
+	th:href="@{/webjars/ionicons/css/ionicons.min.css}">
+		<link rel="stylesheet" th:href="@{/css/ion.rangeSlider.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap-slider.min.css}">
+<link rel="stylesheet"
+	th:href="@{css/tempusdominus-bootstrap-4.min.css}">
+<link rel="stylesheet"
+	th:href="@{/webjars/icheck-bootstrap/icheck-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/jqvmap.min.css}">
+<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+<link rel="stylesheet" th:href="@{/css/OverlayScrollbars.min.css}">
+<link rel="stylesheet" th:href="@{/css/daterangepicker.css}">
+<!-- <link -->
+<!-- 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" -->
+<!-- 	rel="stylesheet"> -->
+<title th:text="${metaTitle} ? ${metaTitle} : 'SpringBoot Rocks'"></title>
+<style>
+.error {
+	color: red;
+	text-align: left;
+}
+</style>
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/sidebar :: sidebar"></div>
+	<section layout:fragment="content"></section>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/Chart.min.js}"></script>
+<script th:src="@{/webjars/jquery-knob/jquery.knob.min.js}"></script>
+<script th:src="@{/js/moment.min.js}"></script>
+<script th:src="@{/js/daterangepicker.js}"></script>
+<script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
+<script th:src="@{/js/jquery.overlayScrollbars.min.js}"></script>
+<script th:src="@{/js/adminlte.js}"></script>
+<script th:src="@{/js/dashboard.js}"></script>
+<script th:src="@{/js/demo.js}"></script>
+<script th:src="@{/js/myChart.js}"></script>
+<script th:src="@{/js/myChart2.js}"></script>
+<script th:src="@{/js/myChart3.js}"></script>
+<script th:src="@{/js/myChart4.js}"></script>
+<script th:src="@{/js/ion.rangeSlider.min.js}"></script>
+<script th:src="@{/js/bootstrap-slider.min.js}"></script>
+
+<script th:src="@{/js/jquery.validate.min.js}"></script>
+<script th:src="@{/js/additional-methods.min.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
+<script th:src="@{/js/validation2.js}"></script>
+
+
+
+<script>
+$(document).ready(function() {
+	
+    var interval = setInterval(function() {
+        var momentNow = moment();
+        
+        $('#date-part').html(momentNow.format('MMMM DD YYYY').toUpperCase());
+//         $('#date-part').html(momentNow.format('MMMM DD YYYY') + ' '
+//                             + momentNow.format('dddd')
+//                              .substring(0,3).toUpperCase());
+        $('#time-part').html(momentNow.format('A hh:mm:ss'));
+    }, 1000);
+    var counter = 0;
+    setInterval(function () {
+      ++counter;
+    }, 1000);
+});
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".todoCheckbox").change(function() { 
+            if($(this).is(":checked")) { 
+//                 $.ajax({
+//                     url: 'on_off.aspx',
+//                     type: 'POST',
+//                     data: { strID:$(this).attr("id"), strState:"1" }
+//                 });
+//             	 alert('checkbox is checked');
+            	 $('#todoCompletedModal').modal();
+            } else {
+//                 $.ajax({
+//                     url: 'on_off.aspx',
+//                     type: 'POST',
+//                     data: { strID:$(this).attr("id"), strState:"0" }
+//                 });
+//             	alert('checkbox is Un-checked');
+            	$('#todoInCompleteModal').modal();
+            }
+        }); 
+    });
+</script>
+
+
+	<script type="text/javascript">
+$(document).ready(function(){
+	$('.newTaskBtn').on('click',function(){
+		$('#taskForm').trigger("reset");
+		var validator = $( "#taskForm" ).validate();
+		validator.resetForm();
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('#myForm').validate({
+
+        // your validation options,
+
+        errorPlacement: function(error, element) {
+            if (element.attr("type") == "radio") {
+                error.insertBefore(element);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+
+    });
+
+});
+</script>​
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('body').on('click','.newTaskBtn, .editBtn' ,function(event){
+// 	$('.newTaskBtn, .editBtn').on('click',function(event){
+		 $("label.error").hide();
+		 $(".error").removeClass("error");
+		event.preventDefault();
+		
+		var href= $(this).attr('href');
+		var text= $(this).text();
+		if(text=='Edit'){
+		$.get(href,function(task,status){
+			$('.myForm #id').val(task.id);
+			$('.myForm #taskname').val(task.taskname);
+			$('.myForm #taskdescription').val(task.taskdescription);
+			$('.myForm #taskunitnumber').val(task.taskunitnumber);
+			$('.myForm #taskunit').val(task.taskunit);
+			$('.myForm #taskcompleted').val(task.taskcompleted);
+		});
+		
+		
+		$('.myForm #exampleModal').modal();
+	} else{
+		$('.myForm #id').val('');
+		$('.myForm #taskname').val('');
+		$('.myForm #taskdescription').val('');
+		$('.myForm #taskunitnumber').val('');
+		$('.myForm #taskunit').val('');
+		$('.myForm #taskcompleted').val('');
+		$('.myForm #exampleModal').modal();
+	}
+	});
+	
+	$('.delBtn').on('click',function(event){
+		event.preventDefault();
+		var href=$(this).attr('href');
+		$('#myModal #delRef').attr('href', href);
+		$('#myModal').modal();
+	});
+	
+//	 $('#myTable').DataTable();
+	
+});
+</script>
+
+
+	<script type="text/javascript">
+$(function() {
+	  $("#taskForm").validate({
+	    rules: {
+	      taskname: "required",
+	      taskdescription: "required",
+	      taskunit: {
+	        required: true,
+	      },
+	      taskcompleted: {
+	          required: true,
+	          minlength: 1,
+	          maxlength: 40,
+	      },
+	      taskunitnumber: {
+	          required: true,
+	          minlength: 1,
+	          maxlength: 3,
+	          digits: true
+	      }
+	    },
+        errorPlacement: function(label, element) {
+            element.parent().append(label);
+        },
+	    // Specify validation error messages
+	    messages: {
+	      taskname: "Please enter your taskname",
+	      taskdescription: "Please enter your taskdescription",
+	      taskunit: "Please enter a valid taskunit",
+	      taskcompleted: "Please enter a valid status"
+	    },
+	    // Make sure the form is submitted to the destination defined
+	    // in the "action" attribute of the form when valid
+	    submitHandler: function(form) {
+	      form.submit();
+	    }
+	  });
+	});
+
+</script>
+
+<script>
+$(document).ready(function() {
+	var counter = 0;
+	$('#mycounter').html(counter);
+	var x = setInterval(function () {
+	  counter = counter+1;
+	  $('#mycounter').html(counter);
+	},1000);
+	
+	
+});
+</script>
+
+
+
+<script>
+  $(function () {
+    /* BOOTSTRAP SLIDER */
+    $('.slider').bootstrapSlider()
+
+    /* ION SLIDER */
+    $('#range_1').ionRangeSlider({
+      min     : 0,
+      max     : 5000,
+      from    : 1000,
+      to      : 4000,
+      type    : 'double',
+      step    : 1,
+      prefix  : '$',
+      prettify: false,
+      hasGrid : true
+    })
+    $('#range_2').ionRangeSlider()
+
+    $('#range_5').ionRangeSlider({
+      min     : 0,
+      max     : 10,
+      type    : 'single',
+      step    : 0.1,
+      postfix : ' mm',
+      prettify: false,
+      hasGrid : true
+    })
+    $('#range_6').ionRangeSlider({
+      min     : -50,
+      max     : 50,
+      from    : 0,
+      type    : 'single',
+      step    : 1,
+      postfix : '°',
+      prettify: false,
+      hasGrid : true
+    })
+
+    $('#range_4').ionRangeSlider({
+      type      : 'single',
+      step      : 100,
+      postfix   : ' light years',
+      from      : 55000,
+      hideMinMax: true,
+      hideFromTo: false
+    })
+    $('#range_3').ionRangeSlider({
+      type    : 'double',
+      postfix : ' miles',
+      step    : 10000,
+      from    : 25000000,
+      to      : 35000000,
+      onChange: function (obj) {
+        var t = ''
+        for (var prop in obj) {
+          t += prop + ': ' + obj[prop] + '\r\n'
+        }
+        $('#result').html(t)
+      },
+      onLoad  : function (obj) {
+        //
+      }
+    })
+  })
+</script>
+
+<script type="text/javascript">
+	// $(document).ready(function() {
+	// 	$('#registrationModal').modal('show');
+	// 	$('#registrationModal').modal({backdrop: 'static', keyboard: false});
+	// 	$('#registrationForm').trigger("reset");
+	// });
+	$(function() {
+		$('#submitForm').click(
+				function(e) {
+					e.preventDefault();
+					$('input').next().remove();
+					$.post({
+						url : 'newtask',
+						data : $('form[name=newTaskModal]').serialize(),
+						success : function(res) {
+
+							if (res.validated) {
+								//Set response
+								// 								$('#resultContainer pre code').text(
+								// 										JSON.stringify(res.user));
+								// 								 alert(res.user.firstName);
+								// 								 alert(res.user.email);
+								$('#resultContainer code').text(res.apptask.id + ' ' + res.apptask.taskname) ;
+								// 								$('#resultContainer').show();
+								$('#newTaskModal').trigger("reset");
+								$('#resultContainer').show().delay(2000)
+										.fadeOut();
+// 								$('#registrationModal').modal('toggle');
+								$('#newTaskModal').delay(2000).fadeOut('slow');
+								   setTimeout(function() {
+								       $("#newTaskModal").modal('toggle');
+								   }, 2000);
+
+							} else {
+								$.each(res.errorMessages, function(key, value) {
+									$('input[name=' + key + ']').after(
+											'<span class="error">' + value
+													+ '</span>');
+								});
+							}
+						}
+					})
+				});
+	});
+</script>
+<!-- <script> -->
+<!-- // $(document).ready(function() { -->
+<!-- // 	document.body.style.zoom = "75%"; -->
+<!-- // }); -->
+<!-- </script>	 -->
+<script>
+// $(document).ready(function() {
+
+// if ((screen.width>=1400) && (screen.height>=800)) {
+//     alert('Screen size: 1366x768 or larger');
+// //     $("link[rel=stylesheet]:not(:first)").attr({href : "style2.css"});
+//     document.body.style.zoom = "100%";
+// }
+// else {
+// 	 alert('Screen size: less than 1366x768 - Setting best resolution for you..!');
+// //     $("link[rel=stylesheet]:not(:first)").attr({href : "style1.css"});
+//     document.body.style.zoom = "75%";
+// }
+// });
+</script>
+</html>

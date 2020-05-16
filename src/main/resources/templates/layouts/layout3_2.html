@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="all,follow">
+<title th:text="${metaTitle} ? ${metaTitle} : 'SpringBoot Rocks'"></title>
+<style>
+.dropdown-menu>a:hover {
+	/* 	background-color: #33BEFF; #5cb85c */
+	/* 	background-color: #F3F694  #90EE90  #b3ff99 */
+	background-color: #33BEFF;
+	text-decoration: none;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+	/* 	background-color: #33BEFF; */
+	/* 		background-color: #F3F694 */
+	/* 	background-color: #b3ff99; */
+	/* 	padding: 10px; */
+	/* 	font-size: 18px; */
+	/* 	font-weight: bold; */
+	
+}
+
+div.ui-tooltip {
+	max-width: 400px;
+}
+/* table /* give class of table*/ */
+/* { */
+/*    table-layout: fixed; */
+/* } */
+
+/* table td */
+/* { */
+/*   word-wrap:break-word;    */
+/*   overflow: hidden; */
+/* } */
+</style>
+
+
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/css/all.min.css}">
+<link rel="stylesheet"
+	th:href="@{/webjars/ionicons/css/ionicons.min.css}">
+<link rel="stylesheet"
+	th:href="@{/css/tempusdominus-bootstrap-4.min.css}">
+<link rel="stylesheet" th:href="@{/css/icheck-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/jqvmap.min.css}">
+<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+<link rel="stylesheet" th:href="@{/css/OverlayScrollbars.min.css}">
+<link rel="stylesheet" th:href="@{/css/daterangepicker.css}">
+<link rel="stylesheet" th:href="@{/css/summernote-bs4.css}">
+<link rel="stylesheet" th:href="@{/css/dataTables.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.css}">
+<!-- <link -->
+<!-- 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" -->
+<!-- 	rel="stylesheet"> -->
+
+
+</head>
+
+<body>
+	<div sec:authorize="isAuthenticated()">
+		<div th:replace="fragments/header :: header"></div>
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+	</div>
+	<section layout:fragment="content"></section>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/js/responsive.bootstrap4.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script th:src="@{/js/adminlte.js}"></script>
+<script th:src="@{/js/demo.js}"></script>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Delete Confirmation</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!--<p class="alert alert-danger">Are you sure you want to delete -->
+				<!--	it?</p> -->
+				<p>Are you sure you want to delete it?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-secondary"
+					data-dismiss="modal">Cancel</button>
+				<a href="" class="btn btn-sm btn-danger" id="delRef">Delete</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	// Do GET all Users from Back-End with JQUERY AJAX
+	$(function () {
+		$.ajax({
+			type : "GET",
+			url : "/api/AppUser/all",
+			success: function(result){
+				$.each(result, function(index, user){
+					
+					var userRow = '<tr>' +
+										'<td>' + user.id + '</td>' +
+										'<td>' + user.username + '</td>' +
+										'<td>' + user.userenabled + '</td>' +
+										'<td>' + user.useremail + '</td>' +
+										'<td>' + user.userfirstname + '</td>' +
+										'<td>' + user.userlastname + '</td>' +
+										'<td>' + user.useraddress + '</td>' +
+// 										'<td>' + user.userdatecreated + '</td>' +
+// 										'<td>' + user.usercreatedby + '</td>' +
+// 										'<td>' + user.userdatemodified + '</td>' +
+// 										'<td>' + user.usermodifiedby + '</td>' +
+								        '<td>' +
+								        	'<div class="btn-group"><input type="hidden" value=' + user.id + '>' +
+						        			'<a class="btn btn-sm btn-success bg-success ajaxActivateCall mr-2">' +
+					          				' <i class="fas fa-award"></i>Activate</a>' +
+					        			'<a class="btn btn-sm btn-warning bg-warning ajaxDeactivateCall mr-2">' +
+				          				'<i class="fas fa-award"></i>De-Activate</a>' + 
+				          				'<a class="btn btn-sm btn-danger bg-red ajaxDeleteCall mr-2">' +
+				          				'<i class="fas fa-user-times"></i>Delete</a>' +
+				        			'</div>' +
+								        '</td>' +
+									  '</tr>';
+					
+					$('#tableitems tbody').append(userRow);
+					
+		        });
+//				Beautify your table here				
+// 				$( "#tableitems tbody tr:odd" ).addClass("bg-purple");
+// 				$( "#tableitems tbody tr:even" ).addClass("bg-navy");
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+				console.log("ERROR: ", e);
+			}
+		});	
+	});
+	
+	// Do DELETE a User via JQUERY AJAX
+	$(document).on("click",".ajaxDeleteCall",function() {
+		
+		var userId = $(this).parent().find('input').val();
+		var workingObject = $(this);
+		
+		$.ajax({
+			type : "DELETE",
+			url : "/api/AppUser/delete/" + userId,
+			success: function(resultMsg){
+				$("#resultMsgDiv").html("<p class=\"alert alert-danger\"> User with id - <b>" + userId + "</b> is deleted successfully!"  +
+				"</p>").fadeIn('slow').animate({opacity: 1.0}, 300).effect("pulsate", { times: 5 }, 400).fadeOut('slow'); 
+				workingObject.closest("tr").remove();
+				
+				// re-css for table
+// 				$( "#tableitems tbody tr:odd" ).addClass("info");
+// 				$( "#tableitems tbody tr:even" ).addClass("success");
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+				console.log("ERROR: ", e);
+			}
+		});
+	});
+	
+$(document).on("click",".ajaxActivateCall",function() {
+		
+		var userId = $(this).parent().find('input').val();
+		var workingObject = $(this);
+		
+		$.ajax({
+			type : "POST",
+			url : "/api/AppUser/activateUser/" + userId,
+			success: function(resultMsg){
+				$("#resultMsgDiv").html("<p class=\"alert alert-success\"> User with id - <b>" + userId + "</b> is Activated successfully!"  +
+				"</p>").fadeIn('slow').animate({opacity: 1.0}, 300).effect("pulsate", { times: 5 }, 400).fadeOut('slow'); 
+// 				workingObject.closest("tr").remove();
+				
+				// re-css for table
+// 				$( "#tableitems tbody tr:odd" ).addClass("info");
+// 				$( "#tableitems tbody tr:even" ).addClass("success");
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+				console.log("ERROR: ", e);
+			}
+		});
+	});
+	
+$(document).on("click",".ajaxDeactivateCall",function() {
+	
+	var userId = $(this).parent().find('input').val();
+	var workingObject = $(this);
+	
+	$.ajax({
+		type : "POST",
+		url : "/api/AppUser/deactivateUser/" + userId,
+		success: function(resultMsg){
+			$("#resultMsgDiv").html("<p class=\"alert alert-warning\"> User with id - <b>" + userId + "</b> is De-Activated successfully!"  +
+			"</p>").fadeIn('slow').animate({opacity: 1.0}, 300).effect("pulsate", { times: 5 }, 400).fadeOut('slow'); 
+// 			workingObject.closest("tr").remove();
+			
+			// re-css for table
+// 			$( "#tableitems tbody tr:odd" ).addClass("info");
+// 			$( "#tableitems tbody tr:even" ).addClass("success");
+		},
+		error : function(e) {
+			alert("ERROR: ", e);
+			console.log("ERROR: ", e);
+		}
+	});
+});
+});
+</script>
+
+<script>
+	$(function() {
+		$(document).tooltip({
+			open : function(event, ui) {
+				ui.tooltip.css("max-width", "400px");
+			}
+		});
+	});
+</script>
+
+</html>

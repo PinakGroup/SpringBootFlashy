@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout3}">
+<head>
+<style>
+ul {
+	/*   margin-left:0px; */
+	padding-left: 12px;
+}
+
+.bigfont {
+	font-size: 1.3em;
+}
+</style>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 th:if="${not #strings.isEmpty(tableusers)}">Registered
+									User List - All</h1>
+								<h1 th:if="${not #strings.isEmpty(tableusersactive)}">Registered
+									User List - Active</h1>
+								<h1 th:if="${not #strings.isEmpty(tableusersinactive)}">Registered
+									User List - Inactive</h1>
+								<!--<h1>Registered User List</h1> -->
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+									<li class="breadcrumb-item active">Registered User List</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="content">
+					<div class="row">
+						<div class="col-12">
+
+							<div class="card">
+								<div class="card-header">
+									<!--<h3 class="card-title">List of registered users</h3> -->
+									<a href="/userEdit" th:href="@{/userEdit}"
+										class="btn btn-sm btn-success"
+										title="Add User With Activation. Greater Responsibilities are bundled with Great Power."><i
+										class="fas fa-user-plus"></i></a>
+
+								</div>
+								<br />
+								<div class="d-flex align-items-center justify-content-center">
+									<div class="col-4 text-center">
+										<form action="usersearch">
+											<div class="input-group">
+												<input type="text" name="userNameCS" id="userNameCS"
+													class="form-control form-control-sm"
+													placeholder="Search Username (Case-Sensitive)"
+													required="required">
+												<div class="input-group-append">
+													<button class="btn btn-sm btn-primary" type="submit">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</form>
+
+										<form action="usersearchignorecase">
+											<div class="input-group">
+												<input type="text" name="userNameCI" id="userNameCI"
+													class="form-control form-control-sm"
+													placeholder="Search Username (Case-Insensitive)"
+													required="required">
+												<div class="input-group-append">
+													<button class="btn btn-sm btn-danger" type="submit">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+
+								<div class="card-body">
+									<table id="tableitems" class="table table-bordered table-hover"
+										style="width: 100%">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>UserName</th>
+												<th>Active?</th>
+												<th>Email</th>
+												<th>First name</th>
+												<th>Last name</th>
+												<!-- 	<th>Address</th> -->
+												<!--	<th>Date Created</th> -->
+												<!--	<th>Created By</th> -->
+												<!--	<th>Last Modified</th> -->
+												<!--	<th>Modified By</th> -->
+												<!--	<td><b>Role(s)</b></td> -->
+												<!--	<td><b>Document(s)</b></td> -->
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="user : ${users}">
+												<td th:text="${user.id}"></td>
+												<td th:text="${user.username}"></td>
+												<td><div th:if="${user.userenabled}">
+														<span class="badge badge-success">Yes</span>
+													</div>
+													<div th:if="${!user.userenabled}">
+														<span class="badge badge-danger">No</span>
+													</div></td>
+												<td th:text="${user.useremail}"></td>
+												<td th:text="${user.userfirstname}"></td>
+												<td th:text="${user.userlastname}"></td>
+												<!-- 	<td th:text="${user.useraddress}"></td> -->
+												<!--	<td th:text="${user.userdatecreated}"></td> -->
+												<!--	<td th:text="${user.usercreatedby}"></td> -->
+												<!--	<td th:text="${user.userdatemodified}"></td> -->
+												<!--	<td th:text="${user.usermodifiedby}"></td> -->
+												<!--	<td><ul> -->
+												<!--			<li th:each="role : ${user.roles}" th:text="${role.name}">Role</li> -->
+												<!--		</ul></td> -->
+												<!--	<td><ul> -->
+												<!--			<li th:each="doc : ${user.appCaseDocumentSet}" -->
+												<!--				th:text="${doc.appuserdocumentdescription}">Document</li> -->
+												<!--		</ul></td> -->
+												<td><div class="btn-group">
+														<a
+															class="btn btn-sm btn-primary bg-primary mr-2 activateAppUserBtn"
+															th:href="@{userfindOne/(id=${user.id})}"
+															data-id="${user.id}"> <i class="fas fa-award"
+															title="View Details"></i>
+														</a> <a th:href="@{'/adddocument/' + ${user.id}}"
+															class="btn btn-sm btn-outline-primary  mr-2"
+															title="Manage documents for this user."><i
+															class="far fa-file-alt"></i></a> <a
+															th:href="@{'/userEdit/' + ${user.id}}"
+															class="btn btn-sm btn-warning bg-orange mr-2"
+															title="Edit User. Available to Users and Super Admins only."><i
+															class="fas fa-user-edit"></i></a> <a
+															th:href="@{/userDelete/{id}(id=${user.id})}"
+															class="btn btn-sm btn-danger bg-red mr-2 delBtn"
+															title="Delete User. Available to Super Admins only.">
+															<i class="fas fa-user-times"></i>
+														</a>
+														<!-- <i class="fas fa-paperclip"></i> -->
+													</div></td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<th>Id</th>
+												<th>UserName</th>
+												<th>Active?</th>
+												<th>Email</th>
+												<th>First name</th>
+												<th>Last name</th>
+												<!-- 	<th>Address</th> -->
+												<!--	<th>Date Created</th> -->
+												<!--	<th>Created By</th> -->
+												<!--	<th>Last Modified</th> -->
+												<!--	<th>Modified By</th> -->
+												<!--	<td><b>Role(s)</b></td> -->
+												<!--	<td><b>Document(s)</b></td> -->
+												<th>Actions</th>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+			<div class="myForm">
+				<!-- 				<form th:action="@{/viewUser}" method="post" id="taskForm" -->
+				name="taskForm">
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Tasks</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="id">Id :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="id"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="username">User Name
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="username"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="useremail">Email Id
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="useremail"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userfirstname">Firstname
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userfirstname"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userlastname">Lastname
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userlastname"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="useraddress">Address
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="useraddress"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userenabled">Enabled
+											?</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userenabled"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userconfirmationtoken">Token
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userconfirmationtoken"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userdatecreated">Date
+											created :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userdatecreated"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="usercreatedby">Created
+											by :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="usercreatedby"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userdatemodified">Date
+											modified :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userdatemodified"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="usermodifiedby">Modified
+											by :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="usermodifiedby"></span>
+									</div>
+								</div>
+
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-sm btn-secondary btn-space"
+									data-dismiss="modal">Ok</button>
+								<!-- 									<input type="submit" class="btn btn-sm btn-danger btn-space" -->
+								<!-- 										value="Mark as Active" title="Clicking it will enable the user immediately." /> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 				</form> -->
+			</div>
+
+
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+</body>
+
+</html>

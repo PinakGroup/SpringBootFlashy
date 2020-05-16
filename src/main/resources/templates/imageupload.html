@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout-min5}">
+<head>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Upload new image</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+									<li class="breadcrumb-item active">Profile</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<!-- left column -->
+							<div class="col-md-12">
+
+								<div class="card card-primary">
+									<!--<div class="card-header"> -->
+									<h4 class="bg-purple">Browse and submit your profile picture</h4>
+									<!--</div> -->
+									<div class="card-body">
+										<form action="/" method="post" enctype="multipart/form-data"
+											th:action="@{'/appUserProfile/' + ${appUserProfile.getId()} + '/image'}">
+											<label class="control-label">Select Picture</label> <input
+												id="userPicturefile" name="userPicturefile" type="file"
+												class="file"> <br /> <br />
+											<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+											<a class="btn btn-sm btn-secondary" href="/">Cancel</a>
+										</form>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+
+		</div>
+	</div>
+</body>
+</html>
