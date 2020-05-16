@@ -37,7 +37,7 @@ Spring Data with Datatable
 
 Spring Data with server side Pagination
 
-Spring Data querying One-To-Many, Many-To-Many relationships of DB tables
+Spring Data querying One-To-One, One-To-Many, Many-To-Many relationships of DB tables
 
 BootStrap 4 with Modals to create new and edit objects
 
