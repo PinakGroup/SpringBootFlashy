@@ -27,6 +27,8 @@ Upload/Download documents to database for individual users
 
 Create/Edit user profile and upload profile-picture.
 
+Servce image(s) from Database.
+
 CRUD Operations using Data JPA Hibernate
 
 Search using Spring Data - case sensitive and case in-sensitive
