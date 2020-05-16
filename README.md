@@ -27,7 +27,7 @@ Upload/Download documents to database for individual users
 
 Create/Edit user profile and upload profile-picture.
 
-Servce image(s) from Database.
+Serve image(s) from Database.
 
 CRUD Operations using Data JPA Hibernate
 
