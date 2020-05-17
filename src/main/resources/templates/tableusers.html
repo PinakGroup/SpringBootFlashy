@@ -136,7 +136,7 @@ ul {
 												<!--		</ul></td> -->
 												<td><div class="btn-group">
 														<a
-															class="btn btn-sm btn-primary bg-primary mr-2 activateAppUserBtn"
+															class="btn btn-sm btn-primary bg-primary mr-2 viewAppUserBtn"
 															th:href="@{userfindOne/(id=${user.id})}"
 															data-id="${user.id}"> <i class="fas fa-award"
 															title="View Details"></i>
@@ -186,15 +186,15 @@ ul {
 
 
 			<div class="myForm">
-				<!-- 				<form th:action="@{/viewUser}" method="post" id="taskForm" -->
+				<!--<form th:action="@{/viewUser}" method="post" id="taskForm" -->
 				name="taskForm">
 				<div class="modal fade" id="exampleModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Tasks</h5>
+							<div class="modal-header bg-primary">
+								<h5 class="modal-title" id="exampleModalLabel">User Details</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -208,7 +208,7 @@ ul {
 										<label class="control-label" for="id">Id :</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="id"></span>
+										<span class="badge badge-danger" id="id"></span>
 									</div>
 								</div>
 
@@ -218,7 +218,7 @@ ul {
 											:</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="username"></span>
+										<span class="badge badge-danger" id="username"></span>
 									</div>
 								</div>
 
@@ -228,7 +228,7 @@ ul {
 											:</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="useremail"></span>
+										<span class="badge badge-success" id="useremail"></span>
 									</div>
 								</div>
 
@@ -238,7 +238,7 @@ ul {
 											:</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="userfirstname"></span>
+										<span class="badge badge-success" id="userfirstname"></span>
 									</div>
 								</div>
 
@@ -248,7 +248,7 @@ ul {
 											:</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="userlastname"></span>
+										<span class="badge badge-success" id="userlastname"></span>
 									</div>
 								</div>
 
@@ -258,7 +258,7 @@ ul {
 											:</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="useraddress"></span>
+										<span class="badge badge-secondary" id="useraddress"></span>
 									</div>
 								</div>
 
@@ -268,7 +268,7 @@ ul {
 											?</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="userenabled"></span>
+										<span class="badge badge-danger" id="userenabled"></span>
 									</div>
 								</div>
 
@@ -298,7 +298,7 @@ ul {
 											by :</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="usercreatedby"></span>
+										<span class="badge badge-danger" id="usercreatedby"></span>
 									</div>
 								</div>
 
@@ -318,7 +318,7 @@ ul {
 											by :</label>
 									</div>
 									<div class="col-md-6 pull-left">
-										<span class="badge badge-info" id="usermodifiedby"></span>
+										<span class="badge badge-danger" id="usermodifiedby"></span>
 									</div>
 								</div>
 
@@ -328,13 +328,13 @@ ul {
 							<div class="modal-footer">
 								<button type="button" class="btn btn-sm btn-secondary btn-space"
 									data-dismiss="modal">Ok</button>
-								<!-- 									<input type="submit" class="btn btn-sm btn-danger btn-space" -->
-								<!-- 										value="Mark as Active" title="Clicking it will enable the user immediately." /> -->
+								<!--<input type="submit" class="btn btn-sm btn-danger btn-space" -->
+								<!--	value="Mark as Active" title="Clicking it will enable the user immediately." /> -->
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 				</form> -->
+				<!-- </form> -->
 			</div>
 
 

@@ -30,7 +30,9 @@
 div.ui-tooltip {
 	max-width: 400px;
 }
-/* table /* give class of table*/ */
+/* table /* give class of table*/
+*
+/
 /* { */
 /*    table-layout: fixed; */
 /* } */
@@ -112,127 +114,226 @@ div.ui-tooltip {
 </div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	// Do GET all Users from Back-End with JQUERY AJAX
-	$(function () {
-		$.ajax({
-			type : "GET",
-			url : "/api/AppUser/all",
-			success: function(result){
-				$.each(result, function(index, user){
-					
-					var userRow = '<tr>' +
-										'<td>' + user.id + '</td>' +
-										'<td>' + user.username + '</td>' +
-										'<td>' + user.userenabled + '</td>' +
-										'<td>' + user.useremail + '</td>' +
-										'<td>' + user.userfirstname + '</td>' +
-										'<td>' + user.userlastname + '</td>' +
-										'<td>' + user.useraddress + '</td>' +
-// 										'<td>' + user.userdatecreated + '</td>' +
-// 										'<td>' + user.usercreatedby + '</td>' +
-// 										'<td>' + user.userdatemodified + '</td>' +
-// 										'<td>' + user.usermodifiedby + '</td>' +
-								        '<td>' +
-								        	'<div class="btn-group"><input type="hidden" value=' + user.id + '>' +
-						        			'<a class="btn btn-sm btn-success bg-success ajaxActivateCall mr-2">' +
-					          				' <i class="fas fa-award"></i>Activate</a>' +
-					        			'<a class="btn btn-sm btn-warning bg-warning ajaxDeactivateCall mr-2">' +
-				          				'<i class="fas fa-award"></i>De-Activate</a>' + 
-				          				'<a class="btn btn-sm btn-danger bg-red ajaxDeleteCall mr-2">' +
-				          				'<i class="fas fa-user-times"></i>Delete</a>' +
-				        			'</div>' +
-								        '</td>' +
-									  '</tr>';
-					
-					$('#tableitems tbody').append(userRow);
-					
-		        });
-//				Beautify your table here				
-// 				$( "#tableitems tbody tr:odd" ).addClass("bg-purple");
-// 				$( "#tableitems tbody tr:even" ).addClass("bg-navy");
-			},
-			error : function(e) {
-				alert("ERROR: ", e);
-				console.log("ERROR: ", e);
-			}
-		});	
-	});
-	
-	// Do DELETE a User via JQUERY AJAX
-	$(document).on("click",".ajaxDeleteCall",function() {
-		
-		var userId = $(this).parent().find('input').val();
-		var workingObject = $(this);
-		
-		$.ajax({
-			type : "DELETE",
-			url : "/api/AppUser/delete/" + userId,
-			success: function(resultMsg){
-				$("#resultMsgDiv").html("<p class=\"alert alert-danger\"> User with id - <b>" + userId + "</b> is deleted successfully!"  +
-				"</p>").fadeIn('slow').animate({opacity: 1.0}, 300).effect("pulsate", { times: 5 }, 400).fadeOut('slow'); 
-				workingObject.closest("tr").remove();
-				
-				// re-css for table
-// 				$( "#tableitems tbody tr:odd" ).addClass("info");
-// 				$( "#tableitems tbody tr:even" ).addClass("success");
-			},
-			error : function(e) {
-				alert("ERROR: ", e);
-				console.log("ERROR: ", e);
-			}
-		});
-	});
-	
-$(document).on("click",".ajaxActivateCall",function() {
-		
-		var userId = $(this).parent().find('input').val();
-		var workingObject = $(this);
-		
-		$.ajax({
-			type : "POST",
-			url : "/api/AppUser/activateUser/" + userId,
-			success: function(resultMsg){
-				$("#resultMsgDiv").html("<p class=\"alert alert-success\"> User with id - <b>" + userId + "</b> is Activated successfully!"  +
-				"</p>").fadeIn('slow').animate({opacity: 1.0}, 300).effect("pulsate", { times: 5 }, 400).fadeOut('slow'); 
-// 				workingObject.closest("tr").remove();
-				
-				// re-css for table
-// 				$( "#tableitems tbody tr:odd" ).addClass("info");
-// 				$( "#tableitems tbody tr:even" ).addClass("success");
-			},
-			error : function(e) {
-				alert("ERROR: ", e);
-				console.log("ERROR: ", e);
-			}
-		});
-	});
-	
-$(document).on("click",".ajaxDeactivateCall",function() {
-	
-	var userId = $(this).parent().find('input').val();
-	var workingObject = $(this);
-	
-	$.ajax({
-		type : "POST",
-		url : "/api/AppUser/deactivateUser/" + userId,
-		success: function(resultMsg){
-			$("#resultMsgDiv").html("<p class=\"alert alert-warning\"> User with id - <b>" + userId + "</b> is De-Activated successfully!"  +
-			"</p>").fadeIn('slow').animate({opacity: 1.0}, 300).effect("pulsate", { times: 5 }, 400).fadeOut('slow'); 
-// 			workingObject.closest("tr").remove();
-			
-			// re-css for table
-// 			$( "#tableitems tbody tr:odd" ).addClass("info");
-// 			$( "#tableitems tbody tr:even" ).addClass("success");
-		},
-		error : function(e) {
-			alert("ERROR: ", e);
-			console.log("ERROR: ", e);
-		}
-	});
-});
-});
+	$(document)
+			.ready(
+					function() {
+						var table = $('#tableitems')
+								.DataTable(
+										{   "pagingType": "full_numbers",
+											"sAjaxSource" : "/api/AppUser/all",
+											"sAjaxDataProp" : "",
+											"aoColumns" : [
+													{
+														"data" : "id"
+													},
+													{
+														"data" : "username"
+													},
+													{
+														"data" : "userenabled"
+													},
+													{
+														"data" : "useremail"
+													},
+													{
+														"data" : "userfirstname"
+													},
+													{
+														"data" : "userlastname"
+													},
+													{
+														"targets" : -1,
+														"data" : null,
+														"defaultContent" : '<div class="btn-group">'
+																+ '<a class="btn btn-sm btn-success bg-success ajaxActivateCall mr-2"><i class="fas fa-award"></i>Activate</a>'
+																+ '<a class="btn btn-sm btn-warning bg-warning ajaxDeactivateCall mr-2"><i class="fas fa-award"></i>De-Activate</a>'
+																+ '<a class="btn btn-sm btn-danger bg-red ajaxDeleteCall mr-2"><i class="fas fa-user-times"></i>Delete</a>'
+																+ '</div>'
+													}
+											// { "mData": "useraddress" },
+											// { "mData": "userdatecreated" },
+											// { "mData": "usercreatedby" },
+											// { "mData": "userdatemodified" },
+											// { "mData": "usermodifiedby" }
+											],
+											"lengthMenu" : [
+													[ 5, 7, 10, 25, 50, 100, -1 ],
+													[ 5, 7, 10, 25, 50, 100,
+															"All" ] ],
+															"autoWidth" : false,
+															"responsive" : true
+										});
+
+						$('#tableitems tbody')
+								.on(
+										'click',
+										'.ajaxDeleteCall',
+										function() {
+											var data = table.row(
+													$(this).parents('tr'))
+													.data();
+											var currentrow = $(this);
+											//alert(  data.username +"'s email-id is: "+ data.useremail);
+
+											$
+													.ajax({
+														type : "DELETE",
+														url : "/api/AppUser/delete/"
+																+ data.id,
+														success : function(
+																resultMsg) {
+															$("#resultMsgDiv")
+																	.html(
+																			"<p class=\"alert alert-danger\"> User with id - <b>"
+																					+ data.id
+																					+ "</b> is deleted successfully!"
+																					+ "</p>")
+																	.fadeIn(
+																			'slow')
+																	.animate(
+																			{
+																				opacity : 1.0
+																			},
+																			300)
+																	.effect(
+																			"pulsate",
+																			{
+																				times : 5
+																			},
+																			400)
+																	.fadeOut(
+																			'slow');
+															currentrow.closest(
+																	"tr")
+																	.remove();
+															table.ajax.reload();
+															// re-css for table
+															//$( "#tableitems tbody tr:odd" ).addClass("info");
+															//$( "#tableitems tbody tr:even" ).addClass("success");
+														},
+														error : function(e) {
+															alert("ERROR: ", e);
+															console.log(
+																	"ERROR: ",
+																	e);
+														}
+													});
+
+										});
+
+						$('#tableitems tbody')
+								.on(
+										'click',
+										'.ajaxDeactivateCall',
+										function() {
+											var data = table.row(
+													$(this).parents('tr'))
+													.data();
+											var currentrow = $(this);
+											//		        alert(  data.username +"'s email-id is: "+ data.useremail);
+
+											$
+													.ajax({
+														type : "POST",
+														url : "/api/AppUser/deactivateUser/"
+																+ data.id,
+														success : function(
+																resultMsg) {
+															$("#resultMsgDiv")
+																	.html(
+																			"<p class=\"alert alert-warning\"> User with id - <b>"
+																					+ data.id
+																					+ "</b> is De-Activated successfully!"
+																					+ "</p>")
+																	.fadeIn(
+																			'slow')
+																	.animate(
+																			{
+																				opacity : 1.0
+																			},
+																			300)
+																	.effect(
+																			"pulsate",
+																			{
+																				times : 5
+																			},
+																			400)
+																	.fadeOut(
+																			'slow');
+															table.ajax.reload();
+															// 						currentrow.closest("tr").remove();
+															// re-css for table
+															//$( "#tableitems tbody tr:odd" ).addClass("info");
+															//$( "#tableitems tbody tr:even" ).addClass("success");
+														},
+														error : function(err) {
+															alert("ERROR: ",
+																	err);
+															console.log(
+																	"ERROR: ",
+																	err);
+														}
+													});
+
+										});
+
+						$('#tableitems tbody')
+								.on(
+										'click',
+										'.ajaxActivateCall',
+										function() {
+											var data = table.row(
+													$(this).parents('tr'))
+													.data();
+											var currentrow = $(this);
+											//		        alert(  data.username +"'s email-id is: "+ data.useremail);
+
+											$
+													.ajax({
+														type : "POST",
+														url : "/api/AppUser/activateUser/"
+																+ data.id,
+														success : function(
+																resultMsg) {
+															$("#resultMsgDiv")
+																	.html(
+																			"<p class=\"alert alert-success\"> User with id - <b>"
+																					+ data.id
+																					+ "</b> is Activated successfully!"
+																					+ "</p>")
+																	.fadeIn(
+																			'slow')
+																	.animate(
+																			{
+																				opacity : 1.0
+																			},
+																			300)
+																	.effect(
+																			"pulsate",
+																			{
+																				times : 5
+																			},
+																			400)
+																	.fadeOut(
+																			'slow');
+															table.ajax.reload();
+															//						currentrow.closest("tr").remove();
+															// re-css for table
+															//$( "#tableitems tbody tr:odd" ).addClass("info");
+															//$( "#tableitems tbody tr:even" ).addClass("success");
+														},
+														error : function(err) {
+															alert("ERROR: ",
+																	err);
+															console.log(
+																	"ERROR: ",
+																	err);
+														}
+													});
+
+										});
+
+					});
 </script>
 
 <script>

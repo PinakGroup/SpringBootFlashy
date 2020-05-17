@@ -115,6 +115,7 @@ div.ui-tooltip {
 	$(function() {
 
 		$('#tableitems').DataTable({
+			"pagingType": "full_numbers",
 			"lengthMenu" : [ [ 5, 7, 10, 25, 50, 100, -1 ],
 				[ 5, 7, 10, 25, 50, 100, "All" ] ],
 // 			"paging" : true,
@@ -140,7 +141,7 @@ div.ui-tooltip {
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$('body').on('click','.activateAppUserBtn' ,function(event){
+	$('body').on('click','.viewAppUserBtn' ,function(event){
 // 	$('.activateAppUserBtn').on('click',function(event){
 		event.preventDefault();
 		

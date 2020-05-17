@@ -12,6 +12,13 @@ ul {
 .bigfont {
 	font-size: 1.3em;
 }
+
+.alert {
+  margin-bottom: 1px;
+  height: auto;
+  line-height:30px;
+  padding:0px 15px;
+}
 </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -53,7 +60,9 @@ ul {
 										class="btn btn-sm btn-success"
 										title="Add User With Activation. Greater Responsibilities are bundled with Great Power."><i
 										class="fas fa-user-plus"></i></a>
-
+									<div class="d-flex align-items-center justify-content-center">
+										<div id="resultMsgDiv"></div>
+									</div>
 								</div>
 								<br />
 								<div class="d-flex align-items-center justify-content-center">
@@ -89,9 +98,6 @@ ul {
 								</div>
 
 								<div class="card-body">
-									<div class="d-flex align-items-center justify-content-center">
-										<div id="resultMsgDiv"></div>
-									</div>
 									<table id="tableitems" class="table table-bordered table-hover"
 										style="width: 100%">
 										<thead>
@@ -102,11 +108,11 @@ ul {
 												<th>Email</th>
 												<th>First name</th>
 												<th>Last name</th>
-												<th>Address</th>
-<!-- 												<th>Date Created</th> -->
-<!-- 												<th>Created By</th> -->
-<!-- 												<th>Last Modified</th> -->
-<!-- 												<th>Modified By</th> -->
+												<!-- 												<th>Address</th> -->
+												<!-- 												<th>Date Created</th> -->
+												<!-- 												<th>Created By</th> -->
+												<!-- 												<th>Last Modified</th> -->
+												<!-- 												<th>Modified By</th> -->
 												<th>Actions</th>
 											</tr>
 										</thead>
@@ -120,11 +126,11 @@ ul {
 												<th>Email</th>
 												<th>First name</th>
 												<th>Last name</th>
-												<th>Address</th>
-<!-- 												<th>Date Created</th> -->
-<!-- 												<th>Created By</th> -->
-<!-- 												<th>Last Modified</th> -->
-<!-- 												<th>Modified By</th> -->
+												<!-- 												<th>Address</th> -->
+												<!-- 												<th>Date Created</th> -->
+												<!-- 												<th>Created By</th> -->
+												<!-- 												<th>Last Modified</th> -->
+												<!-- 												<th>Modified By</th> -->
 												<th>Actions</th>
 											</tr>
 										</tfoot>
@@ -140,8 +146,164 @@ ul {
 
 
 		</div>
+		
+		
 	</div>
 
+
+
+
+<div class="myForm">
+								<form th:action="@{/userEdit}" method="post" id="taskForm"
+				name="taskForm">
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Tasks</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="id">Id :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="id"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="username">User Name
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="username"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="useremail">Email Id
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="useremail"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userfirstname">Firstname
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userfirstname"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userlastname">Lastname
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userlastname"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="useraddress">Address
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="useraddress"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userenabled">Enabled
+											?</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userenabled"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userconfirmationtoken">Token
+											:</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userconfirmationtoken"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userdatecreated">Date
+											created :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userdatecreated"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="usercreatedby">Created
+											by :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="usercreatedby"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="userdatemodified">Date
+											modified :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="userdatemodified"></span>
+									</div>
+								</div>
+
+								<div class="row bigfont">
+									<div class="col-md-4 text-right">
+										<label class="control-label" for="usermodifiedby">Modified
+											by :</label>
+									</div>
+									<div class="col-md-6 pull-left">
+										<span class="badge badge-info" id="usermodifiedby"></span>
+									</div>
+								</div>
+
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-sm btn-secondary btn-space"
+									data-dismiss="modal">Ok</button>
+								<!-- 									<input type="submit" class="btn btn-sm btn-danger btn-space" -->
+								<!-- 										value="Mark as Active" title="Clicking it will enable the user immediately." /> -->
+							</div>
+						</div>
+					</div>
+				</div>
+								</form>
+			</div>
 </body>
 
 </html>

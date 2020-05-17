@@ -33,7 +33,7 @@ public class ConfigWebMVC implements WebMvcConfigurer {
 		registry.addResourceHandler("/usersearchignorecase**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/updateTaskStatusComplete/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/activateUser/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-		registry.addResourceHandler("/appUserProfile/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+		registry.addResourceHandler("/appUserProfile/**/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 	}
 
 	@Bean
