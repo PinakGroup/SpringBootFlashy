@@ -17,6 +17,8 @@ Send email with confirmation token after registration
 
 User Activation, De-Activation and Deletion with single click (JQuery-AJAX) 
 
+Reload table with JQuery ajax after above operations.
+
 Updating only one field in the AppUser Entity
 
 Spring Security. Role based access.
