@@ -18,20 +18,20 @@
 			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 				<div class="image">
 
-<!-- 					<div th:if="${currentUserId == null}"> -->
-<!-- 						<img class="profile-user-img img-fluid img-circle" -->
-<!-- 							src="img/user4-128x128.jpg" alt="User profile picture"> -->
-<!-- 					</div> -->
+					<!-- <div th:if="${currentUserId == null}"> -->
+					<!-- 	<img class="profile-user-img img-fluid img-circle" -->
+					<!-- 		src="img/user4-128x128.jpg" alt="User profile picture"> -->
+					<!-- </div> -->
 
 					<div th:if="${currentUserId != null}">
 						<img
-						th:src="@{'http://localhost:8080/appUserProfile/'+ ${currentUserId} + '/appUserProfileimage'}"
-						class="img-circle elevation-2" />
+							th:src="@{'http://localhost:8080/appUserProfile/'+ ${currentUserId} + '/appUserProfileimage'}"
+							class="img-circle elevation-2" />
 					</div>
 
-<!-- 					<img -->
-<!-- 						th:src="@{'http://localhost:8080/appUserProfile/'+ ${currentUserId} + '/appUserProfileimage'}" -->
-<!-- 						class="img-circle elevation-2" alt="User Image" /> -->
+					<!-- <img -->
+					<!-- 	th:src="@{'http://localhost:8080/appUserProfile/'+ ${currentUserId} + '/appUserProfileimage'}" -->
+					<!-- 	class="img-circle elevation-2" alt="User Image" /> -->
 				</div>
 				<div class="info">
 					<a th:href="@{/profile}" class="d-block"><b><span
@@ -55,36 +55,45 @@
 					</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item"><a th:href="@{/}"
-								class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+								class="nav-link active"> <i class="nav-icon fas fa-home"></i>
 									<p>Home</p>
 							</a></li>
 						</ul></li>
 
+
+
+					<li class="nav-item"><a th:href="@{/tableusers}"
+						class="nav-link"> <i class="nav-icon fas fa-users"></i>
+							<p>Manage Users</p>
+					</a></li>
+
+					<li class="nav-item"><a th:href="@{/tableusersinactive}"
+						class="nav-link"><i class="nav-icon fas fa-users text-danger"></i>
+							<p>Inactive Users</p> </a></li>
+					<li class="nav-item"><a th:href="@{/tableusersactive}"
+						class="nav-link"><i class="nav-icon fas fa-users text-success"></i>
+							<p>Active Users</p> </a></li>
+
+					<li class="nav-item"><a th:href="@{/tableusersREST}"
+						class="nav-link"> <i class="nav-icon fas fa-users"></i>
+							<p>User De/Activation</p>
+					</a></li>
+
+					<li class="nav-item"><a th:href="@{/tabletasks}"
+						class="nav-link"> <i class="nav-icon fas fa-tasks"></i>
+							<p>Task List</p>
+					</a></li>
+
+
+					<!-- <li class="nav-header">EXAMPLES</li> -->
 					<li class="nav-item has-treeview"><a th:href="@{/}"
-						class="nav-link"> <i class="nav-icon fas fa-table"></i>
+						class="nav-link"> <i class="nav-icon fas fa-book"></i>
 							<p>
-								Tables <i class="fas fa-angle-left right"></i>
+								More Pages <i class="fas fa-angle-left right"></i>
 							</p>
 					</a>
 						<ul class="nav nav-treeview">
 
-							<li class="nav-item"><a th:href="@{/tableusers}"
-								class="nav-link"> <i class="far fa-circle nav-icon"></i>
-									<p>User List</p>
-							</a></li>
-							<li class="nav-item"><a th:href="@{/tablesimple}"
-								class="nav-link"> <i class="far fa-circle nav-icon"></i>
-									<p>Simple Tables</p>
-							</a></li>
-						</ul></li>
-
-					<li class="nav-item has-treeview"><a th:href="@{/}"
-						class="nav-link"> <i class="nav-icon fas fa-edit"></i>
-							<p>
-								Forms <i class="fas fa-angle-left right"></i>
-							</p>
-					</a>
-						<ul class="nav nav-treeview">
 							<li class="nav-item"><a th:href="@{/formgeneral}"
 								class="nav-link"> <i class="far fa-circle nav-icon"></i>
 									<p>Form Elements</p>
@@ -93,16 +102,6 @@
 								class="nav-link"> <i class="far fa-circle nav-icon"></i>
 									<p>Validation</p>
 							</a></li>
-						</ul></li>
-
-					<!-- 					<li class="nav-header">EXAMPLES</li> -->
-					<li class="nav-item has-treeview"><a th:href="@{/}"
-						class="nav-link"> <i class="nav-icon fas fa-book"></i>
-							<p>
-								Pages <i class="fas fa-angle-left right"></i>
-							</p>
-					</a>
-						<ul class="nav nav-treeview">
 							<li class="nav-item"><a th:href="@{/login}" class="nav-link">
 									<i class="fas fa-circle text-red nav-icon"></i>
 									<p>Login</p>
@@ -131,94 +130,65 @@
 									class="far fa-circle text-orange nav-icon"></i>
 									<p>Contacts</p>
 							</a></li>
-						</ul></li>
-					<li class="nav-item has-treeview"><a th:href="@{/}"
-						class="nav-link"> <i class="nav-icon fas fa-copy"></i>
-							<p>
-								Some Options <i class="fas fa-angle-left right"></i> <span
-									class="badge badge-info right">6</span>
-							</p>
-					</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item"><a th:href="@{/}" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Link</p>
-							</a></li>
-							<li class="nav-item"><a th:href="@{/}" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Link</p>
+							<li class="nav-item"><a th:href="@{/tablesimple}"
+								class="nav-link"> <i class="far fa-circle nav-icon"></i>
+									<p>Simple Tables</p>
 							</a></li>
 						</ul></li>
-					<!-- 					<li class="nav-header">MISCELLANEOUS</li> -->
-					<li class="nav-item"><a th:href="@{/}" class="nav-link"> <i
-							class="nav-icon fas fa-file"></i>
-							<p>Documentation</p>
-					</a></li>
+
 
 
 					<li class="nav-header">Additional</li>
 					<li class="nav-item has-treeview"><a th:href="@{/}"
-						class="nav-link"> <i class="nav-icon fas fa-circle text-red"></i>
+						class="nav-link"> <i class="nav-icon fas fa-circle text-red"></i><span
+							class="badge badge-info right">6</span>
 							<p>
 								Explore <i class="fas fa-angle-left right"></i>
 							</p>
 					</a>
 						<ul class="nav nav-treeview">
-							<li class="nav-item"><a th:href="@{/}" class="nav-link">
-									<i class="nav-icon far fa-circle text-danger"></i>
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+									class="nav-icon far fa-circle text-danger"></i>
 									<p class="text">Important</p>
 							</a></li>
-							<li class="nav-item"><a th:href="@{/}" class="nav-link">
-									<i class="nav-icon far fa-circle text-warning"></i>
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+									class="nav-icon far fa-circle text-warning"></i>
 									<p>Warning</p>
 							</a></li>
-							<li class="nav-item"><a th:href="@{/}" class="nav-link">
-									<i class="nav-icon far fa-circle text-info"></i>
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+									class="nav-icon far fa-circle text-info"></i>
 									<p>Informational</p>
 							</a></li>
-						</ul></li>
-
-
-
-					<li class="nav-header">Drill Down</li>
-					<li class="nav-item"><a th:href="@{/}" class="nav-link"> <i
-							class="fas fa-circle nav-icon"></i>
-							<p>Level 1</p>
-					</a></li>
-					<li class="nav-item has-treeview"><a th:href="@{/}"
-						class="nav-link"> <i class="nav-icon fas fa-circle"></i>
-							<p>
-								Level 1 <i class="right fas fa-angle-left"></i>
-							</p>
-					</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item"><a th:href="@{/}" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Level 2</p>
-							</a></li>
-							<li class="nav-item has-treeview"><a th:href="@{/}"
-								class="nav-link"> <i class="far fa-circle nav-icon"></i>
+							<li class="nav-item has-treeview"><a href="#"
+								class="nav-link"> <i class="nav-icon fas fa-circle"></i>
 									<p>
-										Level 2 <i class="right fas fa-angle-left"></i>
+										Level 1 <i class="right fas fa-angle-left"></i>
 									</p>
 							</a>
 								<ul class="nav nav-treeview">
-									<li class="nav-item"><a th:href="@{/}" class="nav-link">
-											<i class="far fa-dot-circle nav-icon"></i>
-											<p>Level 3</p>
+									<li class="nav-item"><a href="#" class="nav-link"> <i
+											class="far fa-circle nav-icon"></i>
+											<p>Level 2</p>
+									</a></li>
+									<li class="nav-item has-treeview"><a href="#"
+										class="nav-link"> <i class="far fa-circle nav-icon"></i>
+											<p>
+												Level 2 <i class="right fas fa-angle-left"></i>
+											</p>
+									</a>
+										<ul class="nav nav-treeview">
+											<li class="nav-item"><a href="#" class="nav-link"> <i
+													class="far fa-dot-circle nav-icon"></i>
+													<p>Level 3</p>
+											</a></li>
+										</ul></li>
+									<li class="nav-item"><a href="#" class="nav-link"> <i
+											class="far fa-circle nav-icon"></i>
+											<p>Level 2</p>
 									</a></li>
 								</ul></li>
-							<li class="nav-item"><a th:href="@{/}" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Level 2</p>
-							</a></li>
+
 						</ul></li>
-					<li class="nav-item"><a th:href="@{/}" class="nav-link"> <i
-							class="fas fa-circle nav-icon"></i>
-							<p>Level 1</p>
-					</a></li>
-
-
 
 
 				</ul>

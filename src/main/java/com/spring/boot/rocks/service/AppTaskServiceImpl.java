@@ -1,5 +1,7 @@
 package com.spring.boot.rocks.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +59,7 @@ public class AppTaskServiceImpl implements AppTaskService{
 			entity.setUsers(appTask.getUsers());
 			entity.setTaskdatecreated(entity.getTaskdatecreated());
 			entity.setTaskcreatedby(entity.getTaskcreatedby());
-			entity.setTaskdatemodified(new Date());
+			entity.setTaskdatemodified(getDate());
 			entity.setTaskmodifiedby(getPrincipal());
 			entity.setTaskcompleted(appTask.isTaskcompleted());
 		}
@@ -101,5 +103,17 @@ public class AppTaskServiceImpl implements AppTaskService{
 		return taskRepo.setInCompleteStatusForTask(id);
 	}
 
-	
+	private Date getDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		String dateString = format.format( new Date()   );
+		Date date = null;
+		try {
+			date = format.parse ( dateString );
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return date;
+	}
 }

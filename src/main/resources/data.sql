@@ -115,3 +115,11 @@ education, location, skills, notes, whitepapers, testimonials, inventions, award
    'https://github.com/ajkr195/SpringBootFlashy Some really long text goes here. Some really long text 
    goes here. Some really long text goes here. Some really long text goes here. Some really long text 
    goes here. Some really long text goes here. Some really long text goes here. Some really long text goes here. ', null,'1');
+   
+INSERT INTO app_task (id, taskname, taskdescription, taskunitnumber, taskunit, taskdatecreated,taskcreatedby, taskdatemodified, taskmodifiedby, taskcompleted) VALUES ('1','SpringBoot is De-Facto','Description','1','days','2020-05-17','admin','2020-05-17','admin',FALSE);
+INSERT INTO app_task (id, taskname, taskdescription, taskunitnumber, taskunit, taskdatecreated,taskcreatedby, taskdatemodified, taskmodifiedby, taskcompleted) VALUES ('2','SpringBoot is Nice','Description','5','years','2020-05-17','admin','2020-05-17','admin',FALSE);
+INSERT INTO app_task (id, taskname, taskdescription, taskunitnumber, taskunit, taskdatecreated,taskcreatedby, taskdatemodified, taskmodifiedby, taskcompleted) VALUES ('3','SpringBoot is Rocking','Description','30','years','2020-05-17','admin','2020-05-17','admin',FALSE);
+INSERT INTO app_task (id, taskname, taskdescription, taskunitnumber, taskunit, taskdatecreated,taskcreatedby, taskdatemodified, taskmodifiedby, taskcompleted) VALUES ('4','SpringBoot is easy','Description','1','days','2020-05-17','admin','2020-05-17','admin',FALSE);
+INSERT INTO app_task (id, taskname, taskdescription, taskunitnumber, taskunit, taskdatecreated,taskcreatedby, taskdatemodified, taskmodifiedby, taskcompleted) VALUES ('5','SpringBoot is awesome','Description','30','weeks','2020-05-17','admin','2020-05-17','admin',FALSE);
+INSERT INTO app_task (id, taskname, taskdescription, taskunitnumber, taskunit, taskdatecreated,taskcreatedby, taskdatemodified, taskmodifiedby, taskcompleted) VALUES ('6','SpringBoot is fun','Description','30','months','2020-05-17','admin','2020-05-17','admin',FALSE);
+INSERT INTO app_task (id, taskname, taskdescription, taskunitnumber, taskunit, taskdatecreated,taskcreatedby, taskdatemodified, taskmodifiedby, taskcompleted) VALUES ('7','SpringBoot is wonderful','Description','30','years','2020-05-17','admin','2020-05-17','admin',FALSE);
