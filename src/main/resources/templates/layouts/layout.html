@@ -170,8 +170,9 @@ $(document).ready(function(){
 	
 	$('body').on('click','.newTaskBtn' ,function(event){
 //	 	$('.newTaskBtn, .editBtn').on('click',function(event){
-			 $("label.error").hide();
+// 			 $("label.error").hide();
 			 $(".error").removeClass("error");
+// 			 $('#myForm').trigger("reset");
 			event.preventDefault();
 			
 			var href= $(this).attr('href');
@@ -199,7 +200,7 @@ $(document).ready(function(){
 </script>
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 $(function() {
 	  $("#taskForm").validate({
 	    rules: {

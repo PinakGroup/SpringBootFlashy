@@ -375,7 +375,7 @@
 													View All </a>
 											</div>
 											<div class="col-md-6">
-												<a class="btn btn-success float-right newAddBookBtn"
+												<a class="btn btn-success float-right newTaskBtn"
 													href="#" data-toggle="modal" data-target="#exampleModal">
 													<i class="fas fa-plus"></i> Add Task
 												</a>
@@ -468,7 +468,7 @@
 
 
 								<div class="myForm">
-									<form th:action="@{/tasksave}" method="post" id="taskForm"
+									<form th:action="@{/taskEdit}" method="post" id="taskForm"
 										name="taskForm">
 										<div class="modal fade" id="exampleModal" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalLabel"
@@ -534,7 +534,7 @@
 																<!--		id="taskunit" name="taskunit" /> -->
 																<select class="form-control col-md-4 dropdown-thin"
 																	id="taskunit" name="taskunit">
-																	<option value="days">Days</option>
+																	<option value="days" selected>Days</option>
 																	<option value="weeks">Weeks</option>
 																	<option value="months">Months</option>
 																	<option value="years">Years</option>
