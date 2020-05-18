@@ -63,18 +63,19 @@ public class AppIndexController {
 
 	@Autowired
 	AppUserDocumentRepository appUserDocumentRepository;
-	
+
 	@Autowired
 	AppTaskRepository taskRepo;
-	
+
 	@Autowired
 	AppUserProfileService appUserProfileProfileService;
-	
+
 	@Autowired
 	AppUserProfileRepository appUserProfileRepository;
 
 	@GetMapping("/")
-	public String homePage(Model model, @RequestParam (defaultValue="0") int page) throws JsonProcessingException, ParseException {
+	public String homePage(Model model, @RequestParam(defaultValue = "0") int page)
+			throws JsonProcessingException, ParseException {
 
 		List<AppUser> users = appUserService.findAllUsers();
 
@@ -82,49 +83,49 @@ public class AppIndexController {
 
 		List<ChartData> projectData = appUserJPARepository.getUserActiveStatus();
 		String jsonString = objectMapper.writeValueAsString(projectData);
-		// System.out.println(jsonString);
+// System.out.println(jsonString);
 
-		// List<ChartData> findByRoles = appUserJPARepository.findByRoles();
-		// String jsonString2 = objectMapper.writeValueAsString(findByRoles);
-		// System.out.println(jsonString2);
+// List<ChartData> findByRoles = appUserJPARepository.findByRoles();
+// String jsonString2 = objectMapper.writeValueAsString(findByRoles);
+// System.out.println(jsonString2);
 
-		// for (AppUser au : users) {
-		// System.out.println(au.getUsername() + " has " +
-		// appUserJPARepository.findAllAppuserdocumentset(au.getId()) + "
-		// Documents.!!");
-		// }
+// for (AppUser au : users) {
+// System.out.println(au.getUsername() + " has " +
+// appUserJPARepository.findAllAppuserdocumentset(au.getId()) + "
+// Documents.!!");
+// }
 
 		List<ChartData> getAppuserDocumentCount = appUserJPARepository.getAppuserDocumentCount();
 		String jsonString3 = objectMapper.writeValueAsString(getAppuserDocumentCount);
-		// System.out.println(jsonString3);
+// System.out.println(jsonString3);
 
 		List<ChartData> getAppuserRoleCount = appUserJPARepository.getAppuserRoleCount();
 		String jsonString4 = objectMapper.writeValueAsString(getAppuserRoleCount);
-		// System.out.println(jsonString4);
+// System.out.println(jsonString4);
 
-		// List<AppUser> activeusers = appUserJPARepository.findByUserenabledTrue();
-		// for (AppUser au : activeusers) {
-		// System.out.println(au.getUsername() + " is active");
-		// }
+// List<AppUser> activeusers = appUserJPARepository.findByUserenabledTrue();
+// for (AppUser au : activeusers) {
+// System.out.println(au.getUsername() + " is active");
+// }
 
-		// List<AppUser> inactiveusers = appUserJPARepository.findByUserenabledFalse();
-		// for (AppUser au : inactiveusers) {
-		// System.out.println(au.getUsername() + " is In-Active");
-		// }
-		// DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+// List<AppUser> inactiveusers = appUserJPARepository.findByUserenabledFalse();
+// for (AppUser au : inactiveusers) {
+// System.out.println(au.getUsername() + " is In-Active");
+// }
+// DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMMM dd yyyy");
 		LocalDateTime now = LocalDateTime.now();
-		// Date serverDate = Calendar.getInstance().getTime();
-		// System.out.println(dtf.format(now));
+// Date serverDate = Calendar.getInstance().getTime();
+// System.out.println(dtf.format(now));
 
 		long allusers = appUserService.findAllUsers().size();
 		long activeusers = appUserJPARepository.findByUserenabledTrue().size();
 		long inactiveusers = appUserJPARepository.findByUserenabledFalse().size();
-		
+
 		AppUser currentUserId = appUserJPARepository.getAppuserIdByUsername(getPrincipal());
 		model.addAttribute("currentUserId", appUserProfileRepository.findProfileIdByAppUser(currentUserId));
-		
+
 		model.addAttribute("users", users);
 		model.addAttribute("totaUsers", appUserService.findAllUsers().size());
 		model.addAttribute("activeUserPercentage", percent(activeusers, allusers));
@@ -133,8 +134,6 @@ public class AppIndexController {
 		model.addAttribute("inactiveusers", inactiveusers);
 		model.addAttribute("totalDocuments", appUserDocumentRepository.findAll().size());
 
-		
-		
 		model.addAttribute("serverDate", dtf.format(now));
 		model.addAttribute("projectStatusCnt", jsonString);
 		model.addAttribute("barchartdata", jsonString);
@@ -142,37 +141,39 @@ public class AppIndexController {
 		model.addAttribute("barchartdata3", jsonString4);
 		model.addAttribute("metaTitle", "Home");
 
-		
-		model.addAttribute("oepratingSystem", "OS: "+ gsrd.getOSname());
+		model.addAttribute("oepratingSystem", "OS: " + gsrd.getOSname());
 		model.addAttribute("oepratingSystemVer", gsrd.getOSVersion());
-		model.addAttribute("percentDiskSpaceAvailable", percentdouble(gsrd.getUsableDiskSpaceInGb(), gsrd.getTotalDiskSpaceInGb()));
+		model.addAttribute("percentDiskSpaceAvailable",
+				percentdouble(gsrd.getUsableDiskSpaceInGb(), gsrd.getTotalDiskSpaceInGb()));
 		model.addAttribute("totalDiskSpace", round(gsrd.getTotalDiskSpaceInGb(), 1));
-		
+
 		List<AppTask> tasks = taskRepo.findAll();
 		model.addAttribute("tasks", tasks);
 		model.addAttribute("totaltasks", taskRepo.findAll().size());
-		
-		model.addAttribute("data", taskRepo.findAll( PageRequest.of(page, 4, Sort.by(
-			    Order.asc("id")))));
+
+		model.addAttribute("data", taskRepo.findAll(PageRequest.of(page, 4, Sort.by(Order.asc("id")))));
 		model.addAttribute("currentPage", page);
-		
+
 		List<AppUser> top7Uesrs = appUserJPARepository.findTop3ByUsernamenoLessThanOrderByIdAsc();
-//		int i=1;
-//		 for (AppUser au : top10Uesrs) {
-//				 System.out.println(au.getUsername() + " number " + i);
-//				 }
+//int i=1;
+// for (AppUser au : top10Uesrs) {
+// System.out.println(au.getUsername() + " number " + i);
+// }
 		model.addAttribute("top7Uesrs", top7Uesrs);
+
+		model.addAttribute("systemStats", gsrd.getSystemStats());
+
+//System.out.println("\n\n\nHere you Go.... \n\n\n"+ gsrd.getSystemStats());
 
 		return "index";
 	}
-	
 
 	static long percent(long a, long b) {
 		float result = 0;
 		result = (a * 100) / b;
 		return (int) result;
 	}
-	
+
 	static long percentdouble(double a, double b) {
 		double result = 0;
 		result = (a * 100) / b;
@@ -192,7 +193,7 @@ public class AppIndexController {
 	public String indexPage() {
 		return "redirect:/";
 	}
-	
+
 	private String getPrincipal() {
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

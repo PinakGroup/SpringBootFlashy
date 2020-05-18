@@ -6,7 +6,8 @@
 
 <style>
 .modal-backdrop {
-/* 	background-color: transparent; */
+	/* 	background-color: transparent; */
+	
 }
 </style>
 
@@ -35,7 +36,6 @@
 
 				<section class="content">
 					<div class="container-fluid">
-						<!-- Small boxes (Stat box) -->
 
 						<div class="row">
 							<div class="col-lg-3 col-6">
@@ -440,7 +440,6 @@
 								</div>
 
 
-								<!-- 	Modal Body -->
 								<div class="myForm">
 									<form th:action="@{/tasksave}" method="post" id="taskForm"
 										name="taskForm">
@@ -560,7 +559,6 @@
 									</form>
 								</div>
 
-								<!-- 	Modal Body End -->
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -630,7 +628,6 @@
 											</button>
 										</div>
 									</div>
-									<!-- /.card-header -->
 									<div class="card-body p-0">
 										<div class="table-responsive">
 											<table class="table m-0">
@@ -669,7 +666,6 @@
 												</tfoot>
 											</table>
 										</div>
-										<!-- /.table-responsive -->
 									</div>
 
 
@@ -680,7 +676,6 @@
 											th:href="@{/tableusers}"
 											class="btn btn-sm btn-secondary float-right">View All </a>
 									</div>
-									<!-- /.card-footer -->
 								</div>
 
 								<div class="card card-maroon">
@@ -713,46 +708,13 @@
 									</div>
 								</div>
 
-								<div class="card card-danger">
-									<div class="card-header">
-										<h3 class="card-title">
-											<i class="fas fa-expand"></i> Maximizable
-										</h3>
-										<div class="card-tools">
-											<ul class="nav nav-pills ml-auto">
-												<li class="nav-item"><a
-													class="nav-link active bg-danger" href="#"
-													data-toggle="tab"><i class="fas fa-sync-alt mr-1"></i>
-												</a></li>
-												<li class="nav-item">
-													<button type="button" class="btn btn-tool"
-														data-card-widget="maximize">
-														<i class="fas fa-expand"></i>
-													</button>
-												</li>
-
-											</ul>
-										</div>
-									</div>
-
-									<div class="card-body">
-										<div class="tab-content p-0">
-											<div class="card-body">The body of the card</div>
-										</div>
-									</div>
-								</div>
-
-
-
-
-
-
-
 
 							</section>
 
-							<section class="col-lg-5 connectedSortable">
 
+
+
+							<section class="col-lg-5 connectedSortable">
 
 								<div class="card card-danger">
 									<div class="card-header">
@@ -771,14 +733,13 @@
 											</button>
 										</div>
 									</div>
-									<!-- /.card-header -->
 									<div class="card-body">
 										<div class="row">
 											<!-- /.col -->
 											<div class="col-md-12">
-												<!-- 												<p class="text-center"> -->
-												<!-- 													<strong>Goal Completion</strong> -->
-												<!-- 												</p> -->
+												<!--<p class="text-center"> -->
+												<!--	<strong>Goal Completion</strong> -->
+												<!--</p> -->
 
 												<div class="progress-group">
 													Users activated so far <span class="float-right"><b
@@ -810,7 +771,6 @@
 											</div>
 										</div>
 									</div>
-									<!-- ./card-body -->
 									<div class="card-footer">
 										<div class="row">
 											<div class="col-sm-4 col-6">
@@ -821,9 +781,7 @@
 													<h5 class="description-header" th:text="${activeusers}"></h5>
 													<span class="description-text">Active Users</span>
 												</div>
-												<!-- /.description-block -->
 											</div>
-
 											<div class="col-sm-4 col-6">
 												<div class="description-block border-right">
 													<span class="description-percentage text-danger"><i
@@ -832,7 +790,6 @@
 													<h5 class="description-header" th:text="${inactiveusers}"></h5>
 													<span class="description-text">In-Active Users</span>
 												</div>
-												<!-- /.description-block -->
 											</div>
 											<div class="col-sm-4 col-6">
 												<div class="description-block border-right">
@@ -841,15 +798,10 @@
 													<h5 class="description-header" th:text="${totaUsers}"></h5>
 													<span class="description-text">TOTAL USERS</span>
 												</div>
-												<!-- /.description-block -->
 											</div>
-
 										</div>
-										<!-- /.row -->
 									</div>
-									<!-- /.card-footer -->
 								</div>
-
 
 
 								<div class="card card-olive">
@@ -882,9 +834,6 @@
 								</div>
 
 
-
-
-
 								<div class="card card-lightblue">
 									<div class="card-header">
 										<h3 class="card-title">
@@ -914,14 +863,12 @@
 									</div>
 								</div>
 
-
-
-
-
 								<div class="card card-fuchsia card-tabs">
 									<div class="card-header p-0 pt-1">
 										<ul class="nav nav-tabs" id="custom-tabs-five-tab"
 											role="tablist">
+											<li class="pt-2 px-3"><h3 class="card-title">Card
+													Title</h3></li>
 											<li class="nav-item"><a class="nav-link active"
 												id="custom-tabs-five-overlay-tab" data-toggle="pill"
 												href="#custom-tabs-five-overlay" role="tab"
@@ -952,12 +899,7 @@
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 													Proin malesuada lacus ullamcorper dui molestie, sit amet
 													congue quam finibus. Etiam ultricies nunc non magna feugiat
-													commodo. Etiam odio magna, mollis auctor felis vitae,
-													ullamcorper ornare ligula. Proin pellentesque tincidunt
-													nisi, vitae ullamcorper felis aliquam id. Pellentesque
-													habitant morbi tristique senectus et netus et malesuada
-													fames ac turpis egestas. Proin id orci eu lectus blandit
-													suscipit.
+													commodo. Etiam odio magna, mollis auctor felis vitae.
 												</div>
 											</div>
 											<div class="tab-pane fade" id="custom-tabs-five-overlay-dark"
@@ -972,52 +914,21 @@
 													neque magna, iaculis tempus turpis ac, ornare sodales
 													tellus. Mauris eget blandit dolor. Quisque tincidunt
 													venenatis vulputate. Morbi euismod molestie tristique.
-													Vestibulum consectetur dolor a vestibulum pharetra. Donec
-													interdum placerat urna nec pharetra. Etiam eget dapibus
-													orci, eget aliquet urna.
 												</div>
 											</div>
 											<div class="tab-pane fade" id="custom-tabs-five-normal"
 												role="tabpanel"
-												aria-labelledby="custom-tabs-five-normal-tab">Mauris
-												tincidunt mi at erat gravida, eget tristique urna bibendum.
-												Mauris pharetra purus ut ligula tempor, et vulputate metus
-												facilisis. Lorem ipsum dolor sit amet, consectetur
-												adipiscing elit. Vestibulum ante ipsum primis in faucibus
-												orci luctus et ultrices posuere cubilia Curae; Maecenas
-												sollicitudin, nisi a luctus interdum, nisl ligula placerat
-												mi, quis posuere purus ligula eu lectus.</div>
-										</div>
-									</div>
-								</div>
-								<div class="card card-olive">
-									<div class="card-header">
-										<h3 class="card-title">
-											<i class="fas fa-chart-pie mr-1"></i> Launch Modal with
-											Overlay
-										</h3>
-										<div class="card-tools">
-											<ul class="nav nav-pills ml-auto">
-												<li class="nav-item"><a
-													class="nav-link active bg-danger" href="#"
-													data-toggle="tab"><i class="fas fa-sync-alt mr-1"></i>
-												</a></li>
-
-											</ul>
-										</div>
-									</div>
-
-									<div class="card-body">
-										<div class="tab-content p-0">
-											<button type="button" class="btn btn-sm btn-primary"
-												data-toggle="modal" data-target="#modal-overlay">
-												Launch Modal with Overlay</button>
-											<button type="button" class="btn  btn-sm btn-success"
-												data-toggle="modal" data-target="#modal-sm">Launch
-												Small Modal</button>
-											<button type="button" class="btn  btn-sm btn-danger"
-												data-toggle="modal" data-backdrop="static"
-												data-target="#modal-lg">Launch Large Modal</button>
+												aria-labelledby="custom-tabs-five-normal-tab">
+												<button type="button" class="btn btn-sm btn-primary"
+													data-toggle="modal" data-target="#modal-overlay">
+													Launch Modal with Overlay</button>
+												<button type="button" class="btn  btn-sm btn-success"
+													data-toggle="modal" data-target="#modal-sm">Launch
+													Small Modal</button>
+												<button type="button" class="btn  btn-sm btn-danger"
+													data-toggle="modal" data-backdrop="static"
+													data-target="#modal-lg">Launch Large Modal</button>
+											</div>
 										</div>
 									</div>
 									<div class="modal fade" id="modal-overlay">
@@ -1044,9 +955,7 @@
 														changes</button>
 												</div>
 											</div>
-											<!-- /.modal-content -->
 										</div>
-										<!-- /.modal-dialog -->
 									</div>
 
 									<div class="modal fade" id="modal-sm">
@@ -1069,11 +978,8 @@
 														changes</button>
 												</div>
 											</div>
-											<!-- /.modal-content -->
 										</div>
-										<!-- /.modal-dialog -->
 									</div>
-									<!-- /.modal -->
 
 									<div class="modal fade" id="modal-lg">
 										<div class="modal-dialog modal-dialog-centered modal-lg">
@@ -1096,69 +1002,34 @@
 														changes</button>
 												</div>
 											</div>
-											<!-- /.modal-content -->
 										</div>
-										<!-- /.modal-dialog -->
 									</div>
 								</div>
 
+								<div class="card card-danger">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="fas fa-expand"></i> Maximizable
+										</h3>
+										<div class="card-tools">
+											<ul class="nav nav-pills ml-auto">
+												<li class="nav-item"><a
+													class="nav-link active bg-danger" href="#"
+													data-toggle="tab"><i class="fas fa-sync-alt mr-1"></i>
+												</a></li>
+												<li class="nav-item">
+													<button type="button" class="btn btn-tool"
+														data-card-widget="maximize">
+														<i class="fas fa-expand fa-2x"></i>
+													</button>
+												</li>
 
-								<div class="card card-navy card-tabs">
-									<div class="card-header p-0 pt-1">
-										<ul class="nav nav-tabs" id="custom-tabs-two-tab"
-											role="tablist">
-											<li class="pt-2 px-3"><h3 class="card-title">Card
-													Title</h3></li>
-											<li class="nav-item"><a class="nav-link active"
-												id="custom-tabs-two-home-tab" data-toggle="pill"
-												href="#custom-tabs-two-home" role="tab"
-												aria-controls="custom-tabs-two-home" aria-selected="true">Home</a>
-											</li>
-											<li class="nav-item"><a class="nav-link"
-												id="custom-tabs-two-profile-tab" data-toggle="pill"
-												href="#custom-tabs-two-profile" role="tab"
-												aria-controls="custom-tabs-two-profile"
-												aria-selected="false">Profile</a></li>
-											<li class="nav-item"><a class="nav-link"
-												id="custom-tabs-two-messages-tab" data-toggle="pill"
-												href="#custom-tabs-two-messages" role="tab"
-												aria-controls="custom-tabs-two-messages"
-												aria-selected="false">Messages</a></li>
-											<li class="nav-item"><a class="nav-link"
-												id="custom-tabs-two-settings-tab" data-toggle="pill"
-												href="#custom-tabs-two-settings" role="tab"
-												aria-controls="custom-tabs-two-settings"
-												aria-selected="false">Settings</a></li>
-										</ul>
-									</div>
-									<div class="card-body">
-										<div class="tab-content" id="custom-tabs-two-tabContent">
-											<div class="tab-pane fade show active"
-												id="custom-tabs-two-home" role="tabpanel"
-												aria-labelledby="custom-tabs-two-home-tab">Lorem ipsum
-												dolor sit amet, consectetur adipiscing elit. Proin malesuada
-												lacus ullamcorper dui molestie, sit amet congue quam
-												finibus.</div>
-											<div class="tab-pane fade" id="custom-tabs-two-profile"
-												role="tabpanel"
-												aria-labelledby="custom-tabs-two-profile-tab">Mauris
-												tincidunt mi at erat gravida, eget tristique urna bibendum.
-												Mauris pharetra purus ut ligula tempor, et vulputate metus
-												facilisis.</div>
-											<div class="tab-pane fade" id="custom-tabs-two-messages"
-												role="tabpanel"
-												aria-labelledby="custom-tabs-two-messages-tab">Morbi
-												turpis dolor, vulputate vitae felis non, tincidunt congue
-												mauris. Phasellus volutpat augue id mi placerat mollis.
-												Vivamus faucibus eu massa eget condimentum. Fusce nec
-												hendrerit sem, ac tristique nulla.</div>
-											<div class="tab-pane fade" id="custom-tabs-two-settings"
-												role="tabpanel"
-												aria-labelledby="custom-tabs-two-settings-tab">
-												Pellentesque vestibulum commodo nibh nec blandit. Maecenas
-												neque magna, iaculis tempus turpis ac, ornare sodales
-												tellus. Mauris eget blandit dolor.</div>
+											</ul>
 										</div>
+									</div>
+
+									<div class="card-body">
+											<div th:utext="${systemStats}"></div>
 									</div>
 								</div>
 
