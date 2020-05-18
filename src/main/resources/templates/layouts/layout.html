@@ -144,7 +144,7 @@ $(document).ready(function() {
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$('body').on('click','.newTaskBtn, .editBtn' ,function(event){
+	$('body').on('click','.editBtn' ,function(event){
 // 	$('.newTaskBtn, .editBtn').on('click',function(event){
 		 $("label.error").hide();
 		 $(".error").removeClass("error");
@@ -152,7 +152,7 @@ $(document).ready(function(){
 		
 		var href= $(this).attr('href');
 		var text= $(this).text();
-		if(text=='Edit'){
+		
 		$.get(href,function(task,status){
 			$('.myForm #id').val(task.id);
 			$('.myForm #taskname').val(task.taskname);
@@ -164,16 +164,27 @@ $(document).ready(function(){
 		
 		
 		$('.myForm #exampleModal').modal();
-	} else{
-		$('.myForm #id').val('');
-		$('.myForm #taskname').val('');
-		$('.myForm #taskdescription').val('');
-		$('.myForm #taskunitnumber').val('');
-		$('.myForm #taskunit').val('');
-		$('.myForm #taskcompleted').val('');
-		$('.myForm #exampleModal').modal();
-	}
+	
 	});
+	
+	
+	$('body').on('click','.newTaskBtn' ,function(event){
+//	 	$('.newTaskBtn, .editBtn').on('click',function(event){
+			 $("label.error").hide();
+			 $(".error").removeClass("error");
+			event.preventDefault();
+			
+			var href= $(this).attr('href');
+			var text= $(this).text();
+			$('.myForm #id').val('');
+			$('.myForm #taskname').val('');
+			$('.myForm #taskdescription').val('');
+			$('.myForm #taskunitnumber').val('');
+			$('.myForm #taskunit').val('');
+			$('.myForm #taskcompleted').val('');
+			$('.myForm #exampleModal').modal();
+		
+		});
 	
 	$('.delBtn').on('click',function(event){
 		event.preventDefault();
@@ -222,12 +233,25 @@ $(function() {
 	    // Make sure the form is submitted to the destination defined
 	    // in the "action" attribute of the form when valid
 	    submitHandler: function(form) {
-	      form.submit();
+// 	    	 alert('form submit successful...');
+
+	    	form.submit();
+	    	 
 	    }
 	  });
 	});
 
 </script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+      $('#myForm').submit(function() {
+            $("#todoNewTaskConfirmationModal").modal();
+//             setTimeout(function() { $("#todoNewTaskConfirmationModal").show(); }, 5000);
+      });
+});
+</script>
+
 
 <script>
 $(document).ready(function() {
@@ -311,51 +335,7 @@ $(document).ready(function() {
   })
 </script>
 
-<script type="text/javascript">
-	// $(document).ready(function() {
-	// 	$('#registrationModal').modal('show');
-	// 	$('#registrationModal').modal({backdrop: 'static', keyboard: false});
-	// 	$('#registrationForm').trigger("reset");
-	// });
-	$(function() {
-		$('#submitForm').click(
-				function(e) {
-					e.preventDefault();
-					$('input').next().remove();
-					$.post({
-						url : 'newtask',
-						data : $('form[name=newTaskModal]').serialize(),
-						success : function(res) {
 
-							if (res.validated) {
-								//Set response
-								// 								$('#resultContainer pre code').text(
-								// 										JSON.stringify(res.user));
-								// 								 alert(res.user.firstName);
-								// 								 alert(res.user.email);
-								$('#resultContainer code').text(res.apptask.id + ' ' + res.apptask.taskname) ;
-								// 								$('#resultContainer').show();
-								$('#newTaskModal').trigger("reset");
-								$('#resultContainer').show().delay(2000)
-										.fadeOut();
-// 								$('#registrationModal').modal('toggle');
-								$('#newTaskModal').delay(2000).fadeOut('slow');
-								   setTimeout(function() {
-								       $("#newTaskModal").modal('toggle');
-								   }, 2000);
-
-							} else {
-								$.each(res.errorMessages, function(key, value) {
-									$('input[name=' + key + ']').after(
-											'<span class="error">' + value
-													+ '</span>');
-								});
-							}
-						}
-					})
-				});
-	});
-</script>
 <!-- <script> -->
 <!-- // $(document).ready(function() { -->
 <!-- // 	document.body.style.zoom = "75%"; -->

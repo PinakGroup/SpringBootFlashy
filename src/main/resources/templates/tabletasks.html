@@ -83,6 +83,7 @@ ul {
 											<tr>
 												<th>Id</th>
 												<th>Task Name</th>
+												<th>Completed?</th>
 												<th>Description</th>
 												<th>Unit Number</th>
 												<th>Unit</th>
@@ -98,6 +99,17 @@ ul {
 											<tr th:each="task : ${tasks}">
 												<td th:text="${task.id}"></td>
 												<td th:text="${task.taskname}"></td>
+												<td>
+
+													<div th:if="${task.taskcompleted}">
+														<span class="badge badge-success">Yes</span>
+													</div>
+													<div th:if="${!task.taskcompleted}">
+														<span class="badge badge-danger">No</span>
+													</div>
+
+
+												</td>
 												<td th:text="${task.taskdescription}"></td>
 												<td th:text="${task.taskunitnumber}"></td>
 												<td th:text="${task.taskunit}"></td>
@@ -128,6 +140,7 @@ ul {
 											<tr>
 												<th>Id</th>
 												<th>Task Name</th>
+												<th>Completed?</th>
 												<th>Description</th>
 												<th>Unit Number</th>
 												<th>Unit</th>

@@ -14,24 +14,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ConfigWebMVC implements WebMvcConfigurer {
 
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-INF/resources/",
-			"classpath:/resources/", "classpath:/resources/static/img", "classpath:/resources/static/webfonts",
+			"classpath:/resources/", "classpath:/resources/static/img", "classpath:/img", "classpath:/resources/static/webfonts",
 			"classpath:/resources/static/js", "classpath:/resources/static/css", "classpath:/resources/static/",
 			"classpath:/static/", "classpath:/public/" };
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/appUserProfile**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-		registry.addResourceHandler("/appUserProfile/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-		registry.addResourceHandler("/appUserProfile/**/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-		registry.addResourceHandler("/appUserProfile/*/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-		registry.addResourceHandler("/appUserProfile/*/*").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/resources/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/userEdit/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/userDelete/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/taskEdit/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/somecontext/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-		registry.addResourceHandler("/superAdminActivateUser/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+		registry.addResourceHandler("/appUserProfile/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/getChartJSPieChartData/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/adddocument/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/index/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
