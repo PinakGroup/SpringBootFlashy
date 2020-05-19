@@ -8,6 +8,14 @@
 	color: red;
 	text-align: left;
 }
+
+.jumbotron {
+	padding: 10px;
+}
+.form-control:focus {
+  border-color: #FF0000;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
 </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -159,7 +167,7 @@
 													<p class="error" th:if="${#fields.hasErrors('notes')}"
 														th:errors="*{notes}" />
 												</div>
-												
+
 												<div class="input-group mb-3">
 													<label class="col-md-3 control-label text-right"
 														for="notes">Skills: </label> <select class="form-control"
@@ -186,14 +194,14 @@
 														</label>
 													</div>
 												</div>
-												
-												
+
+
 											</div>
 
 
 											<div class="jumbotron col-md-6 bg-transparent">
 
-												
+
 												<div class="input-group mb-3">
 													<label class="col-md-3 control-label text-right"
 														for="whitepapers">Whitepapers: </label>
@@ -247,7 +255,7 @@
 													<p class="error" th:if="${#fields.hasErrors('awards')}"
 														th:errors="*{awards}" />
 												</div>
-												
+
 
 											</div>
 										</div>
